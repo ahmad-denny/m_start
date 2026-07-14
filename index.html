@@ -253,13 +253,16 @@
         min-height: 0;
     }
 
-    /* SOLUSI MUTLAK WARNA KARTU MOBILE: Mengunci warna ungu gelap transparan asli tanpa efek bug */
+    /* FIX DEFINITIF WARNA CARD MOBILE SENADA DENGAN WEB */
     .app-card {
-        /* Menggunakan perpaduan warna ungu gelap dengan opacity tipis agar tidak menghasilkan abu-abu */
-        background: rgba(36, 11, 62, 0.75) !important; 
-        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        /* Menggunakan warna ungu gelap kebiruan transparan yang sama dengan bagian tengah gradasi web */
+        background: rgba(48, 16, 88, 0.45) !important; 
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
         
-        /* Mematikan total backdrop-filter penentu bug abu-abu di mobile */
+        /* Menggunakan bayangan dengan semburat ungu lembut untuk menggantikan efek glow dari blur web */
+        box-shadow: 0 8px 24px rgba(30, 11, 54, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1) !important;
+        
+        /* Mematikan total filter pemicu bug warna abu-abu */
         backdrop-filter: none !important; 
         -webkit-backdrop-filter: none !important;
         
@@ -269,7 +272,6 @@
         min-height: 0; 
         display: flex;
         flex-direction: column;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
     }
 
     .card-header { margin-bottom: 0.2rem; }
@@ -286,7 +288,7 @@
         font-size: 0.72rem;
         line-height: 1.3;
         margin-bottom: 0.4rem;
-        color: #d8b4fe !important; /* Mengunci teks deskripsi ke warna ungu muda bawaan web */
+        color: #d8b4fe !important; /* Memastikan teks deskripsi menggunakan warna ungu muda terang bawaan web */
         display: -webkit-box;
         -webkit-line-clamp: 2; 
         -webkit-box-orient: vertical;
