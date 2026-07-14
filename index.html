@@ -253,16 +253,13 @@
         min-height: 0;
     }
 
-    /* FIX DEFINITIF WARNA CARD MOBILE SENADA DENGAN WEB */
-    .app-card {
-        /* Menggunakan warna ungu gelap kebiruan transparan yang sama dengan bagian tengah gradasi web */
-        background: rgba(48, 16, 88, 0.45) !important; 
-        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    /* SOLUSI KUNCI WARNA: Menggunakan Hex Warna Ungu Gelap + 2-digit alpha (80) untuk transparansi */
+    main.dashboard-grid .app-card {
+        background-color: #1e0b3680 !important; /* #1e0b36 adalah warna tergelap web Anda, '80' adalah transparansinya */
+        background: #1e0b3680 !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
         
-        /* Menggunakan bayangan dengan semburat ungu lembut untuk menggantikan efek glow dari blur web */
-        box-shadow: 0 8px 24px rgba(30, 11, 54, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1) !important;
-        
-        /* Mematikan total filter pemicu bug warna abu-abu */
+        /* Mematikan total efek filter pemicu bug memutih di mobile */
         backdrop-filter: none !important; 
         -webkit-backdrop-filter: none !important;
         
@@ -272,6 +269,7 @@
         min-height: 0; 
         display: flex;
         flex-direction: column;
+        box-shadow: none !important;
     }
 
     .card-header { margin-bottom: 0.2rem; }
@@ -288,7 +286,7 @@
         font-size: 0.72rem;
         line-height: 1.3;
         margin-bottom: 0.4rem;
-        color: #d8b4fe !important; /* Memastikan teks deskripsi menggunakan warna ungu muda terang bawaan web */
+        color: #d8b4fe !important; /* Mengunci teks deskripsi agar tetap ungu muda seperti di web */
         display: -webkit-box;
         -webkit-line-clamp: 2; 
         -webkit-box-orient: vertical;
