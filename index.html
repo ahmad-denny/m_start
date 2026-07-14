@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>M-Series | Bank Muamalat Indonesia</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,15 +31,23 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
+        /* html & body dikunci total dari segala arah pergerakan */
+        html, body {
+            height: 100vh;
+            height: 100dvh; /* Kunci: Mengikuti tinggi dinamis browser mobile (menghilangkan overscroll browser) */
+            width: 100vw;
+            overflow: hidden; 
+            position: fixed; /* Kunci: Mencegah efek bounce/geser di iOS Safari dan Chrome Mobile */
+            top: 0;
+            left: 0;
+            touch-action: none; /* Menolak gesture scroll layar dari jari pengguna */
+        }
+
         body {
             background: var(--bg-gradient);
             color: var(--text-main);
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden; /* Kunci: Benar-benar menghilangkan scrollbar */
             display: flex;
             flex-direction: column;
-            position: relative;
         }
 
         /* Background Decorations */
@@ -55,14 +63,14 @@
 
         /* Main Layout Container */
         .app-container {
-            flex: 1;
+            height: 100%;
+            width: 100%;
             display: flex;
             flex-direction: column;
-            padding: 1rem; /* Padding dikecilkan untuk space mobile */
-            max-width: 480px; /* Standar maksimal mobile screen */
+            padding: 1rem 0.8rem;
+            max-width: 480px; 
             margin: 0 auto;
-            width: 100%;
-            height: 100%;
+            overflow: hidden; /* Tambahan pengunci lapis kedua */
         }
 
         /* Header Mobile Optimization */
@@ -89,32 +97,33 @@
         }
 
         .brand-text h1 {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             line-height: 1.2;
         }
 
         .brand-text p {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--text-muted);
         }
 
         .date-badge {
             background: rgba(255,255,255,0.1);
-            padding: 4px 10px;
+            padding: 4px 8px;
             border-radius: 20px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             border: 1px solid var(--glass-border);
             white-space: nowrap;
         }
 
-        /* Dashboard Flex Area (No-Scroll Mobile) */
+        /* Dashboard Flex Area - Membagi ruang vertikal secara mutlak */
         .dashboard-grid {
             display: flex;
             flex-direction: column;
-            gap: 0.6rem; /* Jarak antar card dipersempit */
+            gap: 0.5rem; 
             flex: 1; 
-            min-height: 0; /* Mencegah flex child meluap keluar screen */
+            min-height: 0; 
+            overflow: hidden; /* Mengunci total agar tidak ada content yang meluber */
         }
 
         /* App Cards Flex Mode */
@@ -122,17 +131,16 @@
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 14px;
-            padding: 0.8rem 1rem;
+            padding: 0.7rem 0.9rem;
             backdrop-filter: blur(12px);
             display: flex;
-            flex-direction: row; /* Ubah ke baris agar menghemat ruang vertikal mobile */
+            flex-direction: row; 
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            flex: 1; /* Kartu akan membagi rata sisa space layar */
-            min-height: 0; 
-            transition: all 0.3s ease;
-            position: relative;
+            flex: 1; 
+            min-height: 0; /* Memaksa kartu mengecil otomatis mengikuti sisa tinggi screen */
+            overflow: hidden;
         }
 
         .card-left {
@@ -146,26 +154,26 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.15rem;
         }
 
         .icon-wrapper {
-            width: 28px;
-            height: 28px;
+            width: 26px;
+            height: 26px;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             background: rgba(255, 255, 255, 0.1);
             color: #fff;
             flex-shrink: 0;
         }
 
         .status-badge {
-            font-size: 0.65rem;
-            padding: 2px 6px;
-            border-radius: 8px;
+            font-size: 0.6rem;
+            padding: 1px 5px;
+            border-radius: 6px;
             background: rgba(34, 197, 94, 0.2);
             color: #4ade80;
             border: 1px solid rgba(34, 197, 94, 0.3);
@@ -173,17 +181,17 @@
         }
 
         .card-title {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 700;
-            margin-bottom: 0.1rem;
+            margin-bottom: 0.05rem;
         }
 
         .card-desc {
             color: var(--text-muted);
-            font-size: 0.75rem;
-            line-height: 1.3;
+            font-size: 0.7rem;
+            line-height: 1.25;
             display: -webkit-box;
-            -webkit-line-clamp: 2; /* Batasi maksimal 2 baris teks deskripsi */
+            -webkit-line-clamp: 2; /* Memotong teks jika terlalu panjang di hp kecil */
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -193,24 +201,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%; /* Diubah jadi bulat ikonik untuk hemat tempat */
+            width: 36px;
+            height: 36px;
+            border-radius: 50%; 
             background: linear-gradient(135deg, var(--primary-light), var(--primary-purple));
             color: white;
             text-decoration: none;
-            transition: all 0.3s ease;
             border: 1px solid rgba(255,255,255,0.2);
             flex-shrink: 0;
-        }
-
-        .btn-launch span {
-            display: none; /* Sembunyikan teks "Buka Aplikasi" */
-        }
-
-        .btn-launch:hover {
-            background: linear-gradient(135deg, #a78bfa, #7c3aed);
-            box-shadow: 0 0 10px rgba(155, 93, 229, 0.4);
         }
 
         /* Specific Card Accents */
@@ -222,24 +220,12 @@
         /* Footer Minimalist */
         footer {
             text-align: center;
-            padding-top: 0.6rem;
+            padding-top: 0.5rem;
             color: var(--text-muted);
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             opacity: 0.7;
             flex-shrink: 0;
         }
-        
-        /* Animasi Masuk */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .app-card { animation: fadeInUp 0.4s ease-out backwards; }
-        .app-card:nth-child(1) { animation-delay: 0.05s; }
-        .app-card:nth-child(2) { animation-delay: 0.1s; }
-        .app-card:nth-child(3) { animation-delay: 0.15s; }
-        .app-card:nth-child(4) { animation-delay: 0.2s; }
-
     </style>
 </head>
 <body>
