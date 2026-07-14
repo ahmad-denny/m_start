@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M-Series | Bank Muamalat Indonesia</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-dark: #2a0845;
+            --primary-purple: #6441A5;
+            --primary-light: #9b5de5;
+            --accent-gold: #fbbf24;
+            --bg-gradient: linear-gradient(135deg, #1e0b36 0%, #3c096c 50%, #5a189a 100%);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text-main: #ffffff;
+            --text-muted: #d8b4fe;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            height: 100vh; /* Kunci: Tinggi fix 100% layar */
+            width: 100vw;
+            overflow: hidden; /* Kunci: Hilangkan scrollbar */
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Background Decorations */
+        .bg-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.5;
+        }
+        .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #7209b7; }
+        .blob-2 { bottom: -10%; right: -10%; width: 40vw; height: 40vw; background: #4cc9f0; opacity: 0.2; }
+
+        /* Main Layout Container */
+        .app-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Header Compact */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-shrink: 0; /* Mencegah header mengecil */
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            background: rgba(255,255,255,0.1);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+        }
+
+        .brand-text h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .brand-text p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .date-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        /* Grid System for No-Scroll */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 Kolom fix di desktop */
+            gap: 1.2rem;
+            flex: 1; /* Mengisi sisa ruang vertikal */
+            min-height: 0; /* Penting untuk flex child agar tidak overflow */
+        }
+
+        /* App Cards */
+        .app-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .icon-wrapper {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .status-badge {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            font-weight: 600;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-bottom: 1.5rem;
+            flex-grow: 1; /* Push button to bottom */
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Batasi teks 3 baris agar rapi */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .btn-launch {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-purple));
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-top: auto; /* Pastikan tombol selalu di bawah */
+        }
+
+        .btn-launch:hover {
+            background: linear-gradient(135deg, #a78bfa, #7c3aed);
+            box-shadow: 0 0 15px rgba(155, 93, 229, 0.4);
+        }
+
+        /* Specific Card Accents */
+        .card-leads .icon-wrapper { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+        .card-indicator .icon-wrapper { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+        .card-direct .icon-wrapper { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+        .card-dashboard .icon-wrapper { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+        /* Footer Minimalist */
+        footer {
+            text-align: center;
+            padding-top: 1rem;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            opacity: 0.7;
+            flex-shrink: 0;
+        }
+
+        /* Responsive: Mobile & Tablet */
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 kolom di tablet */
+                gap: 1rem;
+            }
+            .app-container { padding: 1rem; }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                height: auto; /* Kembalikan scroll di mobile kecil agar konten tidak gepeng */
+                overflow-y: auto;
+            }
+            .dashboard-grid {
+                grid-template-columns: 1fr; /* 1 kolom di mobile */
+                min-height: auto;
+            }
+            .app-card {
+                min-height: 200px; /* Beri ruang napas di mobile */
+            }
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+        
+        /* Animasi Masuk */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .app-card { animation: fadeInUp 0.5s ease-out backwards; }
+        .app-card:nth-child(1) { animation-delay: 0.1s; }
+        .app-card:nth-child(2) { animation-delay: 0.2s; }
+        .app-card:nth-child(3) { animation-delay: 0.3s; }
+        .app-card:nth-child(4) { animation-delay: 0.4s; }
+
+    </style>
+</head>
+<body>
+
+    <!-- Background Blobs -->
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+
+    <div class="app-container">
+        
+        <!-- Header Compact -->
+        <header>
+            <div class="brand">
+                <div class="logo-icon">
+                    <i class="fas fa-university"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>Bank Muamalat Indonesia</h1>
+                    <p>Digital Ecosystem Portal - Region Sumatera</p>
+                </div>
+            </div>
+            <div class="date-badge">
+                <i class="far fa-calendar-alt"></i> Juli 2026
+            </div>
+        </header>
+
+        <!-- Grid Utama (No Scroll Area) -->
+        <main class="dashboard-grid">
+
+            <!-- 1. M-Leads -->
+            <article class="app-card card-leads">
+                <div class="card-header">
+                    <div class="icon-wrapper"><i class="fas fa-users-viewfinder"></i></div>
+                    <span class="status-badge">Consumer Leads</span>
+                </div>
+                <h2 class="card-title">M-Leads</h2>
+                <p class="card-desc">
+                    Monitoring real-time total tim, leads injected HO, follow-up, interested prospects, hingga booking conversion rate.
+                </p>
+                <a href="https://m-leads.vercel.app/" target="_blank" class="btn-launch">
+                    Buka Aplikasi <i class="fas fa-arrow-right"></i>
+                </a>
+            </article>
+
+            <!-- 2. M-Leading Indicator -->
+            <article class="app-card card-indicator">
+                <div class="card-header">
+                    <div class="icon-wrapper"><i class="fas fa-chart-line"></i></div>
+                    <span class="status-badge">Growth Target</span>
+                </div>
+                <h2 class="card-title">M-Leading Indicator</h2>
+                <p class="card-desc">
+                    Dashboard indikator utama pertumbuhan Current Account & Saving Account. Pantau MTD Growth vs Target Achievement.
+                </p>
+                <a href="https://m-leading-ind.vercel.app/" target="_blank" class="btn-launch">
+                    Buka Aplikasi <i class="fas fa-arrow-right"></i>
+                </a>
+            </article>
+
+            <!-- 3. M-Direct -->
+            <article class="app-card card-direct">
+                <div class="card-header">
+                    <div class="icon-wrapper"><i class="fas fa-user-check"></i></div>
+                    <span class="status-badge">Agent Perf</span>
+                </div>
+                <h2 class="card-title">M-Direct</h2>
+                <p class="card-desc">
+                    Performa agen langsung. Monitor login rate harian, total agen aktif, serta tracking aktivitas input data RBPM.
+                </p>
+                <a href="https://m-direct.vercel.app/" target="_blank" class="btn-launch">
+                    Buka Aplikasi <i class="fas fa-arrow-right"></i>
+                </a>
+            </article>
+
+            <!-- 4. M-Dashboard Region Sumatera -->
+            <article class="app-card card-dashboard">
+                <div class="card-header">
+                    <div class="icon-wrapper"><i class="fas fa-layer-group"></i></div>
+                    <span class="status-badge">Financing</span>
+                </div>
+                <h2 class="card-title">M-Dashboard Sumut</h2>
+                <p class="card-desc">
+                    Ringkasan pembiayaan komprehensif. Lihat Total Booking, segmen Consumer & SME, serta perbandingan MoM.
+                </p>
+                <a href="https://m-dashboard-region-sumatera.vercel.app/" target="_blank" class="btn-launch">
+                    Buka Aplikasi <i class="fas fa-arrow-right"></i>
+                </a>
+            </article>
+
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            &copy; 2026 Digital Transformation Division | Internal Use Only
+        </footer>
+
+    </div>
+
+</body>
+</html>
