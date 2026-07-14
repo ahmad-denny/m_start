@@ -31,16 +31,16 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        /* html & body dikunci total dari segala arah pergerakan */
+        /* Kunci utama menolak geser layar / scroll di mobile */
         html, body {
             height: 100vh;
-            height: 100dvh; /* Kunci: Mengikuti tinggi dinamis browser mobile (menghilangkan overscroll browser) */
+            height: 100dvh; 
             width: 100vw;
             overflow: hidden; 
-            position: fixed; /* Kunci: Mencegah efek bounce/geser di iOS Safari dan Chrome Mobile */
+            position: fixed; 
             top: 0;
             left: 0;
-            touch-action: none; /* Menolak gesture scroll layar dari jari pengguna */
+            touch-action: none; 
         }
 
         body {
@@ -67,18 +67,18 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            padding: 1rem 0.8rem;
+            padding: 0.8rem 1rem; /* Padding disesuaikan agar fit di HP */
             max-width: 480px; 
             margin: 0 auto;
-            overflow: hidden; /* Tambahan pengunci lapis kedua */
+            overflow: hidden;
         }
 
-        /* Header Mobile Optimization */
+        /* Header */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
             flex-shrink: 0; 
         }
 
@@ -89,15 +89,15 @@
         }
 
         .logo-icon {
-            width: 35px;
-            height: 35px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .brand-text h1 {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 700;
             line-height: 1.2;
         }
@@ -116,58 +116,55 @@
             white-space: nowrap;
         }
 
-        /* Dashboard Flex Area - Membagi ruang vertikal secara mutlak */
+        /* Grid Utama tetap vertikal list seperti layout web asli */
         .dashboard-grid {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem; 
+            gap: 0.5rem; /* Mempersempit jarak antar card */
             flex: 1; 
             min-height: 0; 
-            overflow: hidden; /* Mengunci total agar tidak ada content yang meluber */
+            overflow: hidden;
         }
 
-        /* App Cards Flex Mode */
+        /* App Cards Layout Web Asli */
         .app-card {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 14px;
-            padding: 0.7rem 0.9rem;
+            padding: 0.6rem 1rem;
             backdrop-filter: blur(12px);
             display: flex;
-            flex-direction: row; 
-            align-items: center;
+            flex-direction: column; /* Tetap susunan vertikal ke bawah */
             justify-content: space-between;
-            gap: 12px;
             flex: 1; 
-            min-height: 0; /* Memaksa kartu mengecil otomatis mengikuti sisa tinggi screen */
+            min-height: 0; 
             overflow: hidden;
-        }
-
-        .card-left {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            min-width: 0;
+            position: relative;
         }
 
         .card-header {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.2rem;
+        }
+
+        .card-header-left {
+            display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 0.15rem;
         }
 
         .icon-wrapper {
-            width: 26px;
-            height: 26px;
-            border-radius: 8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             background: rgba(255, 255, 255, 0.1);
             color: #fff;
-            flex-shrink: 0;
         }
 
         .status-badge {
@@ -180,35 +177,41 @@
             font-weight: 600;
         }
 
-        .card-title {
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-bottom: 0.05rem;
-        }
-
-        .card-desc {
-            color: var(--text-muted);
-            font-size: 0.7rem;
-            line-height: 1.25;
-            display: -webkit-box;
-            -webkit-line-clamp: 2; /* Memotong teks jika terlalu panjang di hp kecil */
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        /* Button Action Compact */
+        /* Tombol bulat panah kanan tetap di kanan atas card sesuai desain asli */
         .btn-launch {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 36px;
-            height: 36px;
+            width: 26px;
+            height: 26px;
             border-radius: 50%; 
-            background: linear-gradient(135deg, var(--primary-light), var(--primary-purple));
+            background: rgba(255, 255, 255, 0.15);
             color: white;
             text-decoration: none;
-            border: 1px solid rgba(255,255,255,0.2);
-            flex-shrink: 0;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-launch:hover {
+            background: var(--primary-light);
+        }
+
+        .card-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.1rem;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.68rem;
+            line-height: 1.25;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* Memotong teks otomatis jika layar hp terlalu pendek */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 0.2rem;
         }
 
         /* Specific Card Accents */
@@ -220,7 +223,7 @@
         /* Footer Minimalist */
         footer {
             text-align: center;
-            padding-top: 0.5rem;
+            padding-top: 0.4rem;
             color: var(--text-muted);
             font-size: 0.6rem;
             opacity: 0.7;
@@ -238,7 +241,7 @@
         <header>
             <div class="brand">
                 <div class="logo-icon">
-                    <img src="img/BMI.png" alt="Bank Muamalat Logo" style="filter: invert(1) hue-rotate(180deg); mix-blend-mode: screen;" width="35" height="35">
+                    <img src="img/BMI.png" alt="Bank Muamalat Logo" style="filter: invert(1) hue-rotate(180deg); mix-blend-mode: screen;" width="32" height="32">
                 </div>
                 <div class="brand-text">
                     <h1>Bank Muamalat Indonesia</h1>
@@ -253,67 +256,67 @@
         <main class="dashboard-grid">
 
             <article class="app-card card-dashboard">
-                <div class="card-left">
-                    <div class="card-header">
+                <div class="card-header">
+                    <div class="card-header-left">
                         <div class="icon-wrapper"><i class="fas fa-layer-group"></i></div>
                         <span class="status-badge">Dashboard</span>
                     </div>
-                    <h2 class="card-title">M-Dashboard</h2>
-                    <p class="card-desc">
-                        Dashboard komprehensif dari Financing, Funding, Hajj, QRIS, MDIN & NPF beserta perbandingan MoM & YTD.
-                    </p>
+                    <a href="https://m-dashboard-region-sumatera.vercel.app/" target="_blank" class="btn-launch">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                <a href="https://m-dashboard-region-sumatera.vercel.app/" target="_blank" class="btn-launch" title="Buka Aplikasi">
-                    <i class="fas fa-arrow-right"></i>
-                </a>
+                <h2 class="card-title">M-Dashboard</h2>
+                <p class="card-desc">
+                    Dashboard komprehensif dari Financing, Funding, Hajj, QRIS, MDIN & NPF beserta perbandingan MoM & YTD.
+                </p>
             </article>
 
             <article class="app-card card-indicator">
-                <div class="card-left">
-                    <div class="card-header">
+                <div class="card-header">
+                    <div class="card-header-left">
                         <div class="icon-wrapper"><i class="fas fa-chart-line"></i></div>
                         <span class="status-badge">Indicator Target</span>
                     </div>
-                    <h2 class="card-title">M-Leading Indicator</h2>
-                    <p class="card-desc">
-                        Dashboard indikator bulanan pertumbuhan CA, SA, Funding, Booking Consumer, Booking SME, Porsi Haji, MDIN, QRIS, SLI dan New CIF vs Target Bulanan.
-                    </p>
+                    <a href="https://m-leading-ind.vercel.app/" target="_blank" class="btn-launch">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                <a href="https://m-leading-ind.vercel.app/" target="_blank" class="btn-launch" title="Buka Aplikasi">
-                    <i class="fas fa-arrow-right"></i>
-                </a>
+                <h2 class="card-title">M-Leading Indicator</h2>
+                <p class="card-desc">
+                    Dashboard indikator bulanan pertumbuhan CA, SA, Funding, Booking Consumer, Booking SME, Porsi Haji, MDIN, QRIS, SLI dan New CIF vs Target Bulanan.
+                </p>
             </article>
 
             <article class="app-card card-leads">
-                <div class="card-left">
-                    <div class="card-header">
+                <div class="card-header">
+                    <div class="card-header-left">
                         <div class="icon-wrapper"><i class="fas fa-users-viewfinder"></i></div>
                         <span class="status-badge">Consumer Leads</span>
                     </div>
-                    <h2 class="card-title">M-Leads</h2>
-                    <p class="card-desc">
-                        Monitoring real-time total tim, leads injected HO, follow-up, interested prospects, hingga booking conversion rate.
-                    </p>
+                    <a href="https://m-leads.vercel.app/" target="_blank" class="btn-launch">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                <a href="https://m-leads.vercel.app/" target="_blank" class="btn-launch" title="Buka Aplikasi">
-                    <i class="fas fa-arrow-right"></i>
-                </a>
+                <h2 class="card-title">M-Leads</h2>
+                <p class="card-desc">
+                    Monitoring real-time total tim, leads injected HO, follow-up, interested prospects, hingga booking conversion rate.
+                </p>
             </article>
 
             <article class="app-card card-direct">
-                <div class="card-left">
-                    <div class="card-header">
+                <div class="card-header">
+                    <div class="card-header-left">
                         <div class="icon-wrapper"><i class="fas fa-user-check"></i></div>
                         <span class="status-badge">Agent Performance</span>
                     </div>
-                    <h2 class="card-title">M-Direct</h2>
-                    <p class="card-desc">
-                        Performa akses tim sales dengan monitoring login rate harian, total agen aktif, serta tracking aktivitas harian.
-                    </p>
+                    <a href="https://m-direct.vercel.app/" target="_blank" class="btn-launch">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                <a href="https://m-direct.vercel.app/" target="_blank" class="btn-launch" title="Buka Aplikasi">
-                    <i class="fas fa-arrow-right"></i>
-                </a>
+                <h2 class="card-title">M-Direct</h2>
+                <p class="card-desc">
+                    Performa akses tim sales dengan monitoring login rate harian, total agen aktif, serta tracking aktivitas harian.
+                </p>
             </article>
 
         </main>
