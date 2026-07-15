@@ -25,9 +25,9 @@
         body {
             background: var(--bg-gradient);
             color: var(--text-main);
-            height: 100vh;
+            height: 100vh; /* Kunci tinggi layar */
             width: 100vw;
-            overflow: hidden;
+            overflow: hidden; /* Mencegah scroll body */
             display: flex;
             flex-direction: column;
             position: relative;
@@ -39,11 +39,25 @@
         .blob-2 { bottom: -10%; right: -10%; width: 40vw; height: 40vw; background: #4cc9f0; opacity: 0.2; }
 
         .app-container {
-            flex: 1; display: flex; flex-direction: column; padding: 1.5rem 2rem;
-            max-width: 1400px; margin: 0 auto; width: 100%; height: 100%;
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            padding: 1.5rem 2rem;
+            max-width: 1400px; 
+            margin: 0 auto; 
+            width: 100%; 
+            height: 100%;
+            overflow: hidden; /* Penting agar konten tidak melebar keluar */
         }
 
-        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-shrink: 0; }
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 1.5rem; 
+            flex-shrink: 0; /* Header tidak boleh mengecil */
+        }
+        
         .brand { display: flex; align-items: center; gap: 12px; }
         .logo-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
         .brand-text h1 { font-size: 1.2rem; font-weight: 700; line-height: 1.2; }
@@ -56,9 +70,17 @@
         }
 
         .dashboard-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem;
-            flex: 1; min-height: 0;
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 1.2rem;
+            flex: 1; /* Mengambil sisa ruang tersedia */
+            min-height: 0; /* Penting untuk flex child agar bisa shrink */
+            overflow-y: auto; /* Scroll internal hanya jika benar-benar diperlukan di desktop */
+            padding-bottom: 10px; /* Space sebelum footer */
         }
+
+        /* Hilangkan scrollbar default tapi tetap bisa scroll jika perlu */
+        .dashboard-grid::-webkit-scrollbar { width: 0px; background: transparent; }
 
         /* --- CARD STYLING --- */
         .app-card {
@@ -70,22 +92,17 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden; 
-            
-            /* Base Color Solid Gelap */
             background-color: #150524; 
-            
-            /* Setting Gambar Latar */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            min-height: 0; /* Agar card bisa mengecil di mobile */
         }
 
-        /* OVERLAY YANG LEBIH TERANG AGAR GAMBAR TERLIHAT */
         .app-card::before {
             content: '';
             position: absolute;
             inset: 0;
-            /* Gradient lebih transparan (0.75 - 0.90) agar gambar dashboard terlihat */
             background: linear-gradient(to bottom, rgba(21, 5, 36, 0.75) 0%, rgba(21, 5, 36, 0.92) 100%);
             z-index: 0;
             pointer-events: none;
@@ -98,7 +115,6 @@
             box-shadow: 0 20px 50px -10px rgba(100, 65, 165, 0.4), inset 0 0 0 1px rgba(155, 93, 229, 0.3);
         }
         
-        /* Hover Effect: Overlay makin terang saat hover */
         .app-card:hover::before {
             background: linear-gradient(to bottom, rgba(21, 5, 36, 0.60) 0%, rgba(21, 5, 36, 0.85) 100%);
         }
@@ -113,6 +129,7 @@
             color: #fff;
             border: 1px solid rgba(255,255,255,0.05);
             backdrop-filter: blur(10px);
+            flex-shrink: 0;
         }
 
         .status-badge {
@@ -120,6 +137,7 @@
             background: rgba(34, 197, 94, 0.15); color: #4ade80;
             border: 1px solid rgba(34, 197, 94, 0.2);
             font-weight: 600; backdrop-filter: blur(4px);
+            white-space: nowrap;
         }
 
         .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
@@ -138,8 +156,9 @@
             color: white; text-decoration: none; font-weight: 600; font-size: 0.95rem;
             transition: all 0.3s ease;
             border: 1px solid rgba(255,255,255,0.1);
-            margin-top: auto;
+            margin-top: auto; /* Push button to bottom */
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            flex-shrink: 0;
         }
 
         .btn-launch:hover {
@@ -149,27 +168,10 @@
         }
 
         /* --- BACKGROUND IMAGES SPECIFIC --- */
-        /* GANTI URL DI BAWAH INI DENGAN FILE LOKAL ANDA JIKA SUDAH ADA */
-        
-        /* M-Dashboard: Grafik Garis */
-        .card-dashboard { 
-            background-image: url('/img/m-dashboard.png?q=80&w=1000&auto=format&fit=crop'); 
-        }
-        
-        /* M-Leading Indicator: Grafik Batang/Tablet Dashboard */
-        .card-indicator { 
-            background-image: url('img/m-leading.png?q=80&w=1000&auto=format&fit=crop'); 
-        }
-        
-        /* M-Leads: Tim Sales/Meeting */
-        .card-leads { 
-            background-image: url('img/m-leads.png?q=80&w=1000&auto=format&fit=crop'); 
-        }
-        
-        /* M-Direct: Laptop/Agent */
-        .card-direct { 
-            background-image: url('img/m-direct.png?q=80&w=1000&auto=format&fit=crop'); 
-        }
+        .card-dashboard { background-image: url('/img/m-dashboard.png?q=80&w=1000&auto=format&fit=crop'); }
+        .card-indicator { background-image: url('img/m-leading.png?q=80&w=1000&auto=format&fit=crop'); }
+        .card-leads { background-image: url('img/m-leads.png?q=80&w=1000&auto=format&fit=crop'); }
+        .card-direct { background-image: url('img/m-direct.png?q=80&w=1000&auto=format&fit=crop'); }
 
         /* Icon Colors */
         .card-dashboard .icon-wrapper { background: rgba(239, 68, 68, 0.15); color: #f87171; }
@@ -177,7 +179,14 @@
         .card-leads .icon-wrapper { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
         .card-direct .icon-wrapper { background: rgba(16, 185, 129, 0.15); color: #34d399; }
 
-        footer { text-align: center; padding-top: 1rem; color: var(--text-muted); font-size: 0.75rem; opacity: 0.7; flex-shrink: 0; }
+        footer { 
+            text-align: center; 
+            padding-top: 0.5rem; 
+            color: var(--text-muted); 
+            font-size: 0.75rem; 
+            opacity: 0.7; 
+            flex-shrink: 0; /* Footer tidak boleh mengecil/hilang */
+        }
 
         /* Responsive Breakpoints */
         @media (max-width: 1024px) {
@@ -186,41 +195,93 @@
             .app-card { padding: 1.2rem; }
         }
 
+        /* --- MOBILE OPTIMIZATION (KUNCI PERBAIKAN) --- */
         @media (max-width: 768px) {
-            .app-container { padding: 1rem; }
-            header { margin-bottom: 1rem; }
+            body {
+                height: 100dvh; /* Dynamic viewport height untuk mobile browser */
+            }
+
+            .app-container { 
+                padding: 0.8rem 1rem; 
+                justify-content: space-between; /* Distribusi ruang vertikal */
+            }
+
+            header { 
+                margin-bottom: 0.8rem; 
+                padding-bottom: 0;
+            }
+
             .brand { gap: 8px; }
-            .logo-icon { width: 32px; height: 32px; }
-            .brand-text h1 { font-size: 0.95rem; }
-            .brand-text p { font-size: 0.7rem; }
-            .date-badge { padding: 4px 10px; font-size: 0.7rem; }
-            .dashboard-grid { gap: 0.8rem; }
-            .app-card { padding: 0.9rem; border-radius: 20px; }
-            .card-header { margin-bottom: 0.6rem; }
-            .icon-wrapper { width: 36px; height: 36px; border-radius: 10px; font-size: 1rem; }
-            .status-badge { font-size: 0.6rem; padding: 2px 6px; border-radius: 10px; }
-            .card-title { font-size: 0.9rem; margin-bottom: 0.3rem; }
-            .card-desc { font-size: 0.7rem; line-height: 1.3; margin-bottom: 0.8rem; -webkit-line-clamp: 2; }
-            .btn-launch { padding: 8px; border-radius: 10px; font-size: 0.75rem; gap: 6px; }
-            footer { padding-top: 0.8rem; font-size: 0.65rem; }
+            .logo-icon { width: 28px; height: 28px; }
+            .brand-text h1 { font-size: 0.9rem; }
+            .brand-text p { font-size: 0.65rem; display: none; /* Sembunyikan subjudul di mobile sangat kecil */ }
+            
+            /* Ubah Grid menjadi Flex Column agar muat vertikal */
+            .dashboard-grid { 
+                display: flex;
+                flex-direction: column;
+                gap: 0.6rem;
+                overflow-y: visible; /* Biarkan flex mengatur tinggi */
+                padding-bottom: 0;
+            }
+
+            .app-card { 
+                padding: 0.8rem; 
+                border-radius: 16px; 
+                flex: 1; /* Bagi ruang sama rata */
+                min-height: 0;
+                justify-content: space-between;
+            }
+
+            .card-header { margin-bottom: 0.4rem; }
+            
+            .icon-wrapper { 
+                width: 32px; 
+                height: 32px; 
+                border-radius: 8px; 
+                font-size: 0.9rem; 
+            }
+
+            .status-badge { 
+                font-size: 0.6rem; 
+                padding: 2px 6px; 
+            }
+
+            .card-title { 
+                font-size: 0.85rem; 
+                margin-bottom: 0.2rem; 
+            }
+
+            .card-desc { 
+                font-size: 0.7rem; 
+                line-height: 1.3; 
+                margin-bottom: 0.5rem; 
+                -webkit-line-clamp: 2; /* Batasi 2 baris saja */
+            }
+
+            .btn-launch { 
+                padding: 8px; 
+                border-radius: 10px; 
+                font-size: 0.75rem; 
+                gap: 6px; 
+            }
+
+            footer { 
+                padding-top: 0.3rem; 
+                font-size: 0.6rem; 
+            }
         }
 
-        @media (max-width: 360px) {
-            .app-container { padding: 0.8rem; }
-            .brand-text h1 { font-size: 0.85rem; }
-            .card-title { font-size: 0.85rem; }
-            .card-desc { font-size: 0.65rem; }
-            .btn-launch { font-size: 0.7rem; padding: 7px; }
+        /* Untuk layar sangat pendek (iPhone SE gen 1, dll) */
+        @media (max-height: 650px) and (max-width: 768px) {
+            .app-container { padding: 0.5rem 0.8rem; }
+            header { margin-bottom: 0.5rem; }
+            .dashboard-grid { gap: 0.4rem; }
+            .app-card { padding: 0.6rem; }
+            .card-desc { display: none; /* Sembunyikan deskripsi jika layar terlalu pendek */ }
+            .btn-launch { padding: 6px; font-size: 0.7rem; }
         }
 
-        @media (max-height: 600px) and (orientation: landscape) {
-            .app-container { padding: 0.8rem 1.5rem; }
-            header { margin-bottom: 0.8rem; }
-            .dashboard-grid { gap: 0.6rem; }
-            .app-card { padding: 0.7rem; }
-            .card-desc { -webkit-line-clamp: 2; margin-bottom: 0.6rem; }
-            .btn-launch { padding: 6px; }
-        }
     </style>
 </head>
 <body>
@@ -233,11 +294,12 @@
         <header>
             <div class="brand">
                 <div class="logo-icon">
-                    <img src="img/BMI.png" alt="Bank Muamalat Logo" class="logo" width="35" height="35">
+                    <!-- Placeholder Logo jika file tidak ada -->
+                    <i class="fas fa-university" style="color:white; font-size: 24px;"></i>
                 </div>
                 <div class="brand-text">
                     <h1>Bank Muamalat Indonesia</h1>
-                    <p>Region Sumatera Business Portal Management</p>
+                    <p>Region Sumatera Business Portal</p>
                 </div>
             </div>
         </header>
@@ -252,10 +314,10 @@
                 </div>
                 <h2 class="card-title">M-Dashboard</h2>
                 <p class="card-desc">
-                    Dashboard komprehensif dari Financing, Funding, Hajj, QRIS, MDIN & NPF beserta perbandingan MoM & YTD.
+                    Dashboard komprehensif Financing, Funding, Hajj, QRIS, MDIN & NPF.
                 </p>
                 <a href="https://m-dashboard-region-sumatera.vercel.app/" target="_blank" class="btn-launch">
-                    Buka Aplikasi <i class="fas fa-arrow-right"></i>
+                    Buka <i class="fas fa-arrow-right"></i>
                 </a>
             </article>
 
@@ -263,14 +325,14 @@
             <article class="app-card card-indicator">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-chart-line"></i></div>
-                    <span class="status-badge">Indicator Target</span>
+                    <span class="status-badge">Indicator</span>
                 </div>
                 <h2 class="card-title">M-Leading Indicator</h2>
                 <p class="card-desc">
-                    Dashboard indikator bulanan pertumbuhan CA, SA, Funding, Booking Consumer, Booking SME, Porsi Haji, MDIN, QRIS dan New CIF vs Target Bulanan.
+                    Monitoring pertumbuhan CA, SA, Funding, Booking vs Target Bulanan.
                 </p>
                 <a href="https://m-leading-ind.vercel.app/" target="_blank" class="btn-launch">
-                    Buka Aplikasi <i class="fas fa-arrow-right"></i>
+                    Buka <i class="fas fa-arrow-right"></i>
                 </a>
             </article>
 
@@ -278,14 +340,14 @@
             <article class="app-card card-leads">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-users-viewfinder"></i></div>
-                    <span class="status-badge">Consumer Leads</span>
+                    <span class="status-badge">Leads</span>
                 </div>
                 <h2 class="card-title">M-Leads</h2>
                 <p class="card-desc">
-                    Monitoring real-time total tim sales, leads injected by HO, follow-up, interested, hingga booking conversion rate.
+                    Real-time monitoring sales, leads injection, follow-up & conversion rate.
                 </p>
                 <a href="https://m-leads.vercel.app/" target="_blank" class="btn-launch">
-                    Buka Aplikasi <i class="fas fa-arrow-right"></i>
+                    Buka <i class="fas fa-arrow-right"></i>
                 </a>
             </article>
 
@@ -293,21 +355,21 @@
             <article class="app-card card-direct">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-user-check"></i></div>
-                    <span class="status-badge">Agent Performance</span>
+                    <span class="status-badge">Agent</span>
                 </div>
                 <h2 class="card-title">M-Direct</h2>
                 <p class="card-desc">
-                    Performa akses tim sales dengan monitoring login rate harian, total agen aktif, serta tracking aktivitas bulanan.
+                    Performa akses tim sales, login rate harian, total agen aktif & aktivitas.
                 </p>
                 <a href="https://m-direct.vercel.app/" target="_blank" class="btn-launch">
-                    Buka Aplikasi <i class="fas fa-arrow-right"></i>
+                    Buka <i class="fas fa-arrow-right"></i>
                 </a>
             </article>
 
         </main>
 
         <footer>
-            &copy; 2026 Region Business Performance Manager | Typing, Create, Update, Repeat
+            &copy; 2026 Region Business Performance Manager
         </footer>
 
     </div>
