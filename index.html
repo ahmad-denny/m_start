@@ -26,9 +26,9 @@
             background: var(--bg-gradient);
             color: var(--text-main);
             height: 100vh;
-            height: 100dvh; /* Mengatasi address bar browser mobile */
+            height: 100dvh; 
             width: 100vw;
-            overflow: hidden;
+            overflow: hidden; /* Dikunci total agar tidak bisa di-scroll */
             display: flex;
             flex-direction: column;
             position: relative;
@@ -45,7 +45,7 @@
             min-height: 0;
         }
 
-        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-shrink: 0; }
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-shrink: 0; }
         .brand { display: flex; align-items: center; gap: 12px; }
         .logo-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
         .brand-text h1 { font-size: 1.2rem; font-weight: 700; line-height: 1.2; }
@@ -72,18 +72,13 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden; 
-            min-height: 0; /* Penting agar card bisa mengecil di dalam grid flex */
-            
-            /* Base Color Solid Gelap */
+            min-height: 0; 
             background-color: #150524; 
-            
-            /* Setting Gambar Latar */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
 
-        /* OVERLAY YANG LEBIH TERANG AGAR GAMBAR TERLIHAT */
         .app-card::before {
             content: '';
             position: absolute;
@@ -143,19 +138,12 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .btn-launch:hover {
-            background: linear-gradient(135deg, #a78bfa, #7c3aed);
-            box-shadow: 0 0 20px rgba(155, 93, 229, 0.4);
-            transform: scale(1.02);
-        }
-
         /* --- BACKGROUND IMAGES --- */
         .card-dashboard { background-image: url('/img/m-dashboard.png?q=80&w=1000&auto=format&fit=crop'); }
         .card-indicator { background-image: url('img/m-leading.png?q=80&w=1000&auto=format&fit=crop'); }
         .card-leads { background-image: url('img/m-leads.png?q=80&w=1000&auto=format&fit=crop'); }
         .card-direct { background-image: url('img/m-direct.png?q=80&w=1000&auto=format&fit=crop'); }
 
-        /* Icon Colors */
         .card-dashboard .icon-wrapper { background: rgba(239, 68, 68, 0.15); color: #f87171; }
         .card-indicator .icon-wrapper { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
         .card-leads .icon-wrapper { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
@@ -170,75 +158,61 @@
             .app-card { padding: 1.2rem; }
         }
 
-        /* MODIFIKASI KHUSUS MOBILE AGAR PAS DI LAYAR & FOOTER TERLIHAT */
+        /* PERBAIKAN MOBILE STRATEGIS */
         @media (max-width: 768px) {
-            /* Izinkan scroll jika layar handphone terlalu kecil agar footer tidak terpotong mati */
-            body { overflow-y: auto; } 
+            body { overflow: hidden !important; } /* Menghilangkan paksa sistem scroll */
             
             .app-container { 
-                padding: 0.6rem 0.8rem; 
-                height: auto; 
-                min-height: 100dvh;
-                justify-content: space-between;
+                padding: 0.6rem; 
+                height: 100dvh;
             }
             
-            header { margin-bottom: 0.5rem; }
-            .brand { gap: 6px; }
-            .logo-icon { width: 24px; height: 24px; }
-            .logo-icon img { width: 22px; height: 22px; }
-            .brand-text h1 { font-size: 0.8rem; }
-            .brand-text p { font-size: 0.6rem; }
+            /* Jarak Header dengan Card Diperlebar di Mobile */
+            header { margin-bottom: 1rem; } 
             
-            /* Mengatur tinggi baris grid secara tegas 50% dan 50% */
+            .brand { gap: 6px; }
+            .logo-icon { width: 22px; height: 22px; }
+            .logo-icon img { width: 20px; height: 20px; }
+            .brand-text h1 { font-size: 0.75rem; }
+            .brand-text p { font-size: 0.55rem; }
+            
+            /* Grid Layout */
             .dashboard-grid { 
                 grid-template-columns: repeat(2, 1fr); 
                 grid-template-rows: repeat(2, 1fr); 
                 gap: 0.5rem; 
                 flex: 1;
-                margin-bottom: 0.5rem;
+                margin-bottom: 0.4rem;
             }
             
-            /* Mengurangi Padding Card & Membuat Konten Lebih Padat */
-            .app-card { padding: 0.6rem; border-radius: 12px; }
-            .card-header { margin-bottom: 0.3rem; }
-            .icon-wrapper { width: 26px; height: 26px; border-radius: 6px; font-size: 0.75rem; }
-            .status-badge { font-size: 0.5rem; padding: 1px 4px; border-radius: 6px; }
-            .card-title { font-size: 0.75rem; margin-bottom: 0.1rem; }
+            /* ULTRA COMPACT CARD (Diperkecil Ekstrem untuk Menghindari Pemotongan) */
+            .app-card { padding: 0.5rem; border-radius: 10px; }
+            .card-header { margin-bottom: 0.2rem; }
+            .icon-wrapper { width: 22px; height: 22px; border-radius: 5px; font-size: 0.65rem; }
+            .status-badge { font-size: 0.5rem; padding: 1px 4px; border-radius: 5px; }
+            .card-title { font-size: 0.7rem; margin-bottom: 0.1rem; }
             
-            /* Membatasi teks deskripsi 2 baris dengan font lebih kecil agar tidak makan tempat */
+            /* Deskripsi dikecilkan & dipaksa hanya 2 baris agar card tidak memanjang ke bawah */
             .card-desc { 
-                font-size: 0.6rem; 
+                font-size: 0.55rem; 
                 line-height: 1.2; 
-                margin-bottom: 0.4rem; 
+                margin-bottom: 0.3rem; 
                 -webkit-line-clamp: 2; 
             }
             
-            /* Mengurangi ukuran tombol launching */
-            .btn-launch { padding: 6px; border-radius: 6px; font-size: 0.65rem; gap: 4px; }
+            /* Tombol dibuat sangat ramping */
+            .btn-launch { padding: 5px; border-radius: 5px; font-size: 0.6rem; gap: 3px; }
             
-            /* Memberikan ruang yang cukup untuk footer */
-            footer { padding: 0.4rem 0; font-size: 0.55rem; }
+            footer { padding: 0.2rem 0; font-size: 0.55rem; }
         }
 
         @media (max-width: 360px) {
-            .app-container { padding: 0.4rem; }
-            .dashboard-grid { gap: 0.3rem; }
-            .app-card { padding: 0.4rem; border-radius: 10px; }
-            .brand-text h1 { font-size: 0.7rem; }
-            .card-title { font-size: 0.7rem; }
-            .card-desc { font-size: 0.55rem; margin-bottom: 0.3rem; }
-            .btn-launch { font-size: 0.6rem; padding: 5px; }
-            footer { padding: 0.3rem 0; font-size: 0.5rem; }
-        }
-
-        @media (max-height: 600px) and (orientation: landscape) {
-            body { overflow-y: auto; }
-            .app-container { padding: 0.4rem 1rem; height: auto; }
-            header { margin-bottom: 0.3rem; }
+            header { margin-bottom: 0.8rem; }
             .dashboard-grid { gap: 0.3rem; }
             .app-card { padding: 0.4rem; }
-            .card-desc { -webkit-line-clamp: 1; margin-bottom: 0.3rem; }
-            .btn-launch { padding: 4px; }
+            .card-title { font-size: 0.65rem; }
+            .card-desc { font-size: 0.5rem; -webkit-line-clamp: 2; }
+            .btn-launch { font-size: 0.55rem; padding: 4px; }
         }
     </style>
 </head>
@@ -263,6 +237,7 @@
 
         <main class="dashboard-grid">
 
+            <!-- Card 1: M-Dashboard -->
             <article class="app-card card-dashboard">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-layer-group"></i></div>
@@ -277,6 +252,7 @@
                 </a>
             </article>
 
+            <!-- Card 2: M-Leading Indicator -->
             <article class="app-card card-indicator">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-chart-line"></i></div>
@@ -291,6 +267,7 @@
                 </a>
             </article>
 
+            <!-- Card 3: M-Leads -->
             <article class="app-card card-leads">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-users-viewfinder"></i></div>
@@ -305,6 +282,7 @@
                 </a>
             </article>
 
+            <!-- Card 4: M-Direct -->
             <article class="app-card card-direct">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-user-check"></i></div>
