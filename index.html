@@ -25,22 +25,27 @@
         body {
             background: var(--bg-gradient);
             color: var(--text-main);
-            height: 100vh;
+            /* PERUBAHAN 1: Ubah height menjadi min-height agar bisa scroll */
+            min-height: 100vh; 
             width: 100vw;
-            overflow: hidden;
+            /* PERUBAHAN 2: Izinkan scroll vertikal */
+            overflow-x: hidden;
+            overflow-y: auto; 
             display: flex;
             flex-direction: column;
             position: relative;
         }
 
         /* Background Blobs */
-        .bg-blob { position: absolute; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.5; }
+        .bg-blob { position: absolute; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.5; pointer-events: none; }
         .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #7209b7; }
         .blob-2 { bottom: -10%; right: -10%; width: 40vw; height: 40vw; background: #4cc9f0; opacity: 0.2; }
 
         .app-container {
             flex: 1; display: flex; flex-direction: column; padding: 1.5rem 2rem;
-            max-width: 1400px; margin: 0 auto; width: 100%; height: 100%;
+            max-width: 1400px; margin: 0 auto; width: 100%; 
+            /* PERUBAHAN 3: Hapus height: 100% agar container mengikuti konten */
+            min-height: 100vh;
         }
 
         header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-shrink: 0; }
@@ -57,7 +62,9 @@
 
         .dashboard-grid {
             display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem;
-            flex: 1; min-height: 0;
+            flex: 1; 
+            /* PERUBAHAN 4: Tambahkan min-height agar grid tidak gepeng di desktop */
+            min-height: 500px; 
         }
 
         /* --- CARD STYLING --- */
@@ -85,7 +92,6 @@
             content: '';
             position: absolute;
             inset: 0;
-            /* Gradient lebih transparan (0.75 - 0.90) agar gambar dashboard terlihat */
             background: linear-gradient(to bottom, rgba(21, 5, 36, 0.75) 0%, rgba(21, 5, 36, 0.92) 100%);
             z-index: 0;
             pointer-events: none;
@@ -98,7 +104,6 @@
             box-shadow: 0 20px 50px -10px rgba(100, 65, 165, 0.4), inset 0 0 0 1px rgba(155, 93, 229, 0.3);
         }
         
-        /* Hover Effect: Overlay makin terang saat hover */
         .app-card:hover::before {
             background: linear-gradient(to bottom, rgba(21, 5, 36, 0.60) 0%, rgba(21, 5, 36, 0.85) 100%);
         }
@@ -149,27 +154,10 @@
         }
 
         /* --- BACKGROUND IMAGES SPECIFIC --- */
-        /* GANTI URL DI BAWAH INI DENGAN FILE LOKAL ANDA JIKA SUDAH ADA */
-        
-        /* M-Dashboard: Grafik Garis */
-        .card-dashboard { 
-            background-image: url('/img/m-dashboard.png?q=80&w=1000&auto=format&fit=crop'); 
-        }
-        
-        /* M-Leading Indicator: Grafik Batang/Tablet Dashboard */
-        .card-indicator { 
-            background-image: url('img/m-leading.png?q=80&w=1000&auto=format&fit=crop'); 
-        }
-        
-        /* M-Leads: Tim Sales/Meeting */
-        .card-leads { 
-            background-image: url('img/m-leads.png?q=80&w=1000&auto=format&fit=crop'); 
-        }
-        
-        /* M-Direct: Laptop/Agent */
-        .card-direct { 
-            background-image: url('img/m-direct.png?q=80&w=1000&auto=format&fit=crop'); 
-        }
+        .card-dashboard { background-image: url('/img/m-dashboard.png?q=80&w=1000&auto=format&fit=crop'); }
+        .card-indicator { background-image: url('img/m-leading.png?q=80&w=1000&auto=format&fit=crop'); }
+        .card-leads { background-image: url('img/m-leads.png?q=80&w=1000&auto=format&fit=crop'); }
+        .card-direct { background-image: url('img/m-direct.png?q=80&w=1000&auto=format&fit=crop'); }
 
         /* Icon Colors */
         .card-dashboard .icon-wrapper { background: rgba(239, 68, 68, 0.15); color: #f87171; }
@@ -177,7 +165,13 @@
         .card-leads .icon-wrapper { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
         .card-direct .icon-wrapper { background: rgba(16, 185, 129, 0.15); color: #34d399; }
 
-        footer { text-align: center; padding-top: 1rem; color: var(--text-muted); font-size: 0.75rem; opacity: 0.7; flex-shrink: 0; }
+        footer { 
+            text-align: center; 
+            padding-top: 1rem; 
+            /* PERUBAHAN 5: Tambah padding bawah agar footer tidak mepet ujung layar saat discroll */
+            padding-bottom: 2rem; 
+            color: var(--text-muted); font-size: 0.75rem; opacity: 0.7; flex-shrink: 0; 
+        }
 
         /* Responsive Breakpoints */
         @media (max-width: 1024px) {
@@ -186,22 +180,43 @@
             .app-card { padding: 1.2rem; }
         }
 
+        /* PERUBAHAN UTAMA DI MOBILE */
         @media (max-width: 768px) {
             .app-container { padding: 1rem; }
+            
+            /* Pastikan header tidak memakan terlalu banyak ruang */
             header { margin-bottom: 1rem; }
             .brand { gap: 8px; }
             .logo-icon { width: 32px; height: 32px; }
             .brand-text h1 { font-size: 0.95rem; }
             .brand-text p { font-size: 0.7rem; }
-            .date-badge { padding: 4px 10px; font-size: 0.7rem; }
-            .dashboard-grid { gap: 0.8rem; }
-            .app-card { padding: 0.9rem; border-radius: 20px; }
+            
+            .dashboard-grid { 
+                gap: 0.8rem; 
+                /* PERUBAHAN PENTING: Beri tinggi minimum agar 4 kartu punya ruang cukup */
+                min-height: auto; 
+                /* Opsional: Jika ingin 2x2 tetap rapi di HP kecil, gunakan min-height yang cukup */
+                min-height: calc(100vh - 120px); 
+            }
+            
+            .app-card { 
+                padding: 0.9rem; border-radius: 20px; 
+                /* PERUBAHAN: Beri min-height pada card agar isinya tidak terpotong */
+                min-height: 280px; 
+            }
+            
             .card-header { margin-bottom: 0.6rem; }
             .icon-wrapper { width: 36px; height: 36px; border-radius: 10px; font-size: 1rem; }
             .status-badge { font-size: 0.6rem; padding: 2px 6px; border-radius: 10px; }
             .card-title { font-size: 0.9rem; margin-bottom: 0.3rem; }
-            .card-desc { font-size: 0.7rem; line-height: 1.3; margin-bottom: 0.8rem; -webkit-line-clamp: 2; }
+            
+            .card-desc { 
+                font-size: 0.7rem; line-height: 1.3; margin-bottom: 0.8rem; 
+                -webkit-line-clamp: 2; 
+            }
+            
             .btn-launch { padding: 8px; border-radius: 10px; font-size: 0.75rem; gap: 6px; }
+            
             footer { padding-top: 0.8rem; font-size: 0.65rem; }
         }
 
@@ -211,13 +226,15 @@
             .card-title { font-size: 0.85rem; }
             .card-desc { font-size: 0.65rem; }
             .btn-launch { font-size: 0.7rem; padding: 7px; }
+            /* Di layar sangat kecil, kurangi min-height card agar muat */
+            .app-card { min-height: 240px; }
         }
 
         @media (max-height: 600px) and (orientation: landscape) {
             .app-container { padding: 0.8rem 1.5rem; }
             header { margin-bottom: 0.8rem; }
             .dashboard-grid { gap: 0.6rem; }
-            .app-card { padding: 0.7rem; }
+            .app-card { padding: 0.7rem; min-height: 200px; }
             .card-desc { -webkit-line-clamp: 2; margin-bottom: 0.6rem; }
             .btn-launch { padding: 6px; }
         }
