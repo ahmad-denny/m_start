@@ -149,27 +149,10 @@
         }
 
         /* --- BACKGROUND IMAGES SPECIFIC --- */
-        /* GANTI URL DI BAWAH INI DENGAN FILE LOKAL ANDA JIKA SUDAH ADA */
-        
-        /* M-Dashboard: Grafik Garis */
-        .card-dashboard { 
-            background-image: url('/img/m-dashboard.png?q=80&w=1000&auto=format&fit=crop'); 
-        }
-        
-        /* M-Leading Indicator: Grafik Batang/Tablet Dashboard */
-        .card-indicator { 
-            background-image: url('img/m-leading.png?q=80&w=1000&auto=format&fit=crop'); 
-        }
-        
-        /* M-Leads: Tim Sales/Meeting */
-        .card-leads { 
-            background-image: url('img/m-leads.png?q=80&w=1000&auto=format&fit=crop'); 
-        }
-        
-        /* M-Direct: Laptop/Agent */
-        .card-direct { 
-            background-image: url('img/m-direct.png?q=80&w=1000&auto=format&fit=crop'); 
-        }
+        .card-dashboard { background-image: url('/img/m-dashboard.png?q=80&w=1000&auto=format&fit=crop'); }
+        .card-indicator { background-image: url('img/m-leading.png?q=80&w=1000&auto=format&fit=crop'); }
+        .card-leads { background-image: url('img/m-leads.png?q=80&w=1000&auto=format&fit=crop'); }
+        .card-direct { background-image: url('img/m-direct.png?q=80&w=1000&auto=format&fit=crop'); }
 
         /* Icon Colors */
         .card-dashboard .icon-wrapper { background: rgba(239, 68, 68, 0.15); color: #f87171; }
@@ -186,40 +169,55 @@
             .app-card { padding: 1.2rem; }
         }
 
+        /* MODIFIKASI KHUSUS MOBILE AGAR PAS DI LAYAR & FOOTER TERLIHAT */
         @media (max-width: 768px) {
-            .app-container { padding: 1rem; }
-            header { margin-bottom: 1rem; }
-            .brand { gap: 8px; }
-            .logo-icon { width: 32px; height: 32px; }
-            .brand-text h1 { font-size: 0.95rem; }
-            .brand-text p { font-size: 0.7rem; }
-            .date-badge { padding: 4px 10px; font-size: 0.7rem; }
-            .dashboard-grid { gap: 0.8rem; }
-            .app-card { padding: 0.9rem; border-radius: 20px; }
-            .card-header { margin-bottom: 0.6rem; }
-            .icon-wrapper { width: 36px; height: 36px; border-radius: 10px; font-size: 1rem; }
-            .status-badge { font-size: 0.6rem; padding: 2px 6px; border-radius: 10px; }
-            .card-title { font-size: 0.9rem; margin-bottom: 0.3rem; }
-            .card-desc { font-size: 0.7rem; line-height: 1.3; margin-bottom: 0.8rem; -webkit-line-clamp: 2; }
-            .btn-launch { padding: 8px; border-radius: 10px; font-size: 0.75rem; gap: 6px; }
-            footer { padding-top: 0.8rem; font-size: 0.65rem; }
+            .app-container { padding: 0.8rem; }
+            header { margin-bottom: 0.6rem; }
+            .brand { gap: 6px; }
+            .logo-icon { width: 28px; height: 28px; }
+            .logo-icon img { width: 26px; height: 26px; }
+            .brand-text h1 { font-size: 0.85rem; }
+            .brand-text p { font-size: 0.65rem; }
+            .date-badge { padding: 3px 8px; font-size: 0.65rem; }
+            
+            /* Mengurangi Gap Grid */
+            .dashboard-grid { gap: 0.6rem; }
+            
+            /* Mengurangi Padding Card & Membuat Konten Lebih Padat */
+            .app-card { padding: 0.7rem; border-radius: 16px; }
+            .card-header { margin-bottom: 0.4rem; }
+            .icon-wrapper { width: 30px; height: 30px; border-radius: 8px; font-size: 0.85rem; }
+            .status-badge { font-size: 0.55rem; padding: 2px 6px; border-radius: 8px; }
+            .card-title { font-size: 0.8rem; margin-bottom: 0.2rem; }
+            
+            /* Membatasi teks deskripsi 2 baris dengan font lebih kecil */
+            .card-desc { font-size: 0.65rem; line-height: 1.25; margin-bottom: 0.5rem; -webkit-line-clamp: 2; }
+            
+            /* Mengurangi ukuran tombol launching */
+            .btn-launch { padding: 7px; border-radius: 8px; font-size: 0.7rem; gap: 4px; }
+            
+            /* Memberikan ruang untuk footer */
+            footer { padding-top: 0.5rem; font-size: 0.6rem; }
         }
 
         @media (max-width: 360px) {
-            .app-container { padding: 0.8rem; }
-            .brand-text h1 { font-size: 0.85rem; }
-            .card-title { font-size: 0.85rem; }
-            .card-desc { font-size: 0.65rem; }
-            .btn-launch { font-size: 0.7rem; padding: 7px; }
+            .app-container { padding: 0.5rem; }
+            .dashboard-grid { gap: 0.4rem; }
+            .app-card { padding: 0.5rem; border-radius: 12px; }
+            .brand-text h1 { font-size: 0.75rem; }
+            .card-title { font-size: 0.75rem; }
+            .card-desc { font-size: 0.6rem; margin-bottom: 0.4rem; }
+            .btn-launch { font-size: 0.65rem; padding: 6px; }
+            footer { padding-top: 0.4rem; font-size: 0.55rem; }
         }
 
         @media (max-height: 600px) and (orientation: landscape) {
-            .app-container { padding: 0.8rem 1.5rem; }
-            header { margin-bottom: 0.8rem; }
-            .dashboard-grid { gap: 0.6rem; }
-            .app-card { padding: 0.7rem; }
-            .card-desc { -webkit-line-clamp: 2; margin-bottom: 0.6rem; }
-            .btn-launch { padding: 6px; }
+            .app-container { padding: 0.5rem 1rem; }
+            header { margin-bottom: 0.4rem; }
+            .dashboard-grid { gap: 0.4rem; }
+            .app-card { padding: 0.5rem; }
+            .card-desc { -webkit-line-clamp: 1; margin-bottom: 0.4rem; }
+            .btn-launch { padding: 5px; }
         }
     </style>
 </head>
@@ -244,7 +242,6 @@
 
         <main class="dashboard-grid">
 
-            <!-- Card 1: M-Dashboard -->
             <article class="app-card card-dashboard">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-layer-group"></i></div>
@@ -259,7 +256,6 @@
                 </a>
             </article>
 
-            <!-- Card 2: M-Leading Indicator -->
             <article class="app-card card-indicator">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-chart-line"></i></div>
@@ -274,7 +270,6 @@
                 </a>
             </article>
 
-            <!-- Card 3: M-Leads -->
             <article class="app-card card-leads">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-users-viewfinder"></i></div>
@@ -289,7 +284,6 @@
                 </a>
             </article>
 
-            <!-- Card 4: M-Direct -->
             <article class="app-card card-direct">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-user-check"></i></div>
