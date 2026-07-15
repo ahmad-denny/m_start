@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -16,296 +15,213 @@
             --primary-dark: #2a0845;
             --primary-purple: #6441A5;
             --primary-light: #9b5de5;
-            --accent-gold: #fbbf24;
             --bg-gradient: linear-gradient(135deg, #1e0b36 0%, #3c096c 50%, #5a189a 100%);
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.15);
             --text-main: #ffffff;
             --text-muted: #d8b4fe;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
 
         body {
             background: var(--bg-gradient);
             color: var(--text-main);
             height: 100vh;
             width: 100vw;
-            overflow: hidden; /* Hilangkan scrollbar */
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             position: relative;
         }
 
-        /* Background Decorations */
-        .bg-blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: -1;
-            opacity: 0.5;
-        }
+        /* Background Blobs */
+        .bg-blob { position: absolute; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.5; }
         .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #7209b7; }
         .blob-2 { bottom: -10%; right: -10%; width: 40vw; height: 40vw; background: #4cc9f0; opacity: 0.2; }
 
-        /* Main Layout Container */
         .app-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 1.5rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            width: 100%;
-            height: 100%;
+            flex: 1; display: flex; flex-direction: column; padding: 1.5rem 2rem;
+            max-width: 1400px; margin: 0 auto; width: 100%; height: 100%;
         }
 
-        /* Header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .brand-text h1 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .brand-text p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-shrink: 0; }
+        .brand { display: flex; align-items: center; gap: 12px; }
+        .logo-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+        .brand-text h1 { font-size: 1.2rem; font-weight: 700; line-height: 1.2; }
+        .brand-text p { font-size: 0.8rem; color: var(--text-muted); }
+        
         .date-badge {
-            background: rgba(255,255,255,0.1);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            border: 1px solid var(--glass-border);
+            background: rgba(255,255,255,0.05);
+            padding: 6px 12px; border-radius: 20px; font-size: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Grid System - DEFAULT PC/LAPTOP (4 Kolom Sejajar) */
         .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.2rem;
-            flex: 1;
-            min-height: 0;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem;
+            flex: 1; min-height: 0;
         }
 
-        /* App Cards - Desain PC Asli */
+        /* --- CARD STYLING --- */
         .app-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
+            border: none; 
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.1);
+            border-radius: 24px;
             padding: 1.5rem;
-            backdrop-filter: blur(12px);
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
+            display: flex; flex-direction: column;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            overflow: hidden;
+            overflow: hidden; 
+            
+            /* Base Color Solid Gelap */
+            background-color: #150524; 
+            
+            /* Setting Gambar Latar */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
+
+        /* OVERLAY YANG LEBIH TERANG AGAR GAMBAR TERLIHAT */
+        .app-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            /* Gradient lebih transparan (0.75 - 0.90) agar gambar dashboard terlihat */
+            background: linear-gradient(to bottom, rgba(21, 5, 36, 0.75) 0%, rgba(21, 5, 36, 0.92) 100%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .card-header, .card-title, .card-desc, .btn-launch { position: relative; z-index: 1; }
 
         .app-card:hover {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 50px -10px rgba(100, 65, 165, 0.4), inset 0 0 0 1px rgba(155, 93, 229, 0.3);
+        }
+        
+        /* Hover Effect: Overlay makin terang saat hover */
+        .app-card:hover::before {
+            background: linear-gradient(to bottom, rgba(21, 5, 36, 0.60) 0%, rgba(21, 5, 36, 0.85) 100%);
         }
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+        
         .icon-wrapper {
-            width: 45px;
-            height: 45px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            background: rgba(255, 255, 255, 0.1);
+            width: 48px; height: 48px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem;
+            background: rgba(255, 255, 255, 0.08);
             color: #fff;
+            border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
         }
 
         .status-badge {
-            font-size: 0.7rem;
-            padding: 3px 8px;
-            border-radius: 12px;
-            background: rgba(34, 197, 94, 0.2);
-            color: #4ade80;
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            font-weight: 600;
+            font-size: 0.7rem; padding: 4px 10px; border-radius: 20px;
+            background: rgba(34, 197, 94, 0.15); color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            font-weight: 600; backdrop-filter: blur(4px);
         }
 
-        .card-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.4rem;
-        }
-
+        .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        
         .card-desc {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            line-height: 1.4;
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            color: #e9d5ff; font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem;
+            flex-grow: 1; display: -webkit-box; -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical; overflow: hidden;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
 
         .btn-launch {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-            padding: 12px;
-            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; padding: 14px; border-radius: 14px;
             background: linear-gradient(135deg, var(--primary-light), var(--primary-purple));
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
+            color: white; text-decoration: none; font-weight: 600; font-size: 0.95rem;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
             margin-top: auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .btn-launch:hover {
             background: linear-gradient(135deg, #a78bfa, #7c3aed);
-            box-shadow: 0 0 15px rgba(155, 93, 229, 0.4);
+            box-shadow: 0 0 20px rgba(155, 93, 229, 0.4);
+            transform: scale(1.02);
         }
 
-        /* Specific Card Accents */
-        .card-leads .icon-wrapper { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
-        .card-indicator .icon-wrapper { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
-        .card-direct .icon-wrapper { background: rgba(16, 185, 129, 0.2); color: #34d399; }
-        .card-dashboard .icon-wrapper { background: rgba(239, 68, 68, 0.2); color: #f87171; }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding-top: 1rem;
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            opacity: 0.7;
-            flex-shrink: 0;
+        /* --- BACKGROUND IMAGES SPECIFIC --- */
+        /* GANTI URL DI BAWAH INI DENGAN FILE LOKAL ANDA JIKA SUDAH ADA */
+        
+        /* M-Dashboard: Grafik Garis */
+        .card-dashboard { 
+            background-image: url('/img/m-dashboard.png?q=80&w=1000&auto=format&fit=crop'); 
+        }
+        
+        /* M-Leading Indicator: Grafik Batang/Tablet Dashboard */
+        .card-indicator { 
+            background-image: url('img/m-leading.png?q=80&w=1000&auto=format&fit=crop'); 
+        }
+        
+        /* M-Leads: Tim Sales/Meeting */
+        .card-leads { 
+            background-image: url('img/m-leads.png?q=80&w=1000&auto=format&fit=crop'); 
+        }
+        
+        /* M-Direct: Laptop/Agent */
+        .card-direct { 
+            background-image: url('img/m-direct.png?q=80&w=1000&auto=format&fit=crop'); 
         }
 
-/* ==========================================================================
-   KHUSUS MODE MOBILE (Layar di bawah 768px)
-   ========================================================================== */
-@media (max-width: 768px) {
-    html, body {
-        height: 100dvh; 
-        position: fixed; 
-        touch-action: none; 
-    }
+        /* Icon Colors */
+        .card-dashboard .icon-wrapper { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+        .card-indicator .icon-wrapper { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+        .card-leads .icon-wrapper { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+        .card-direct .icon-wrapper { background: rgba(16, 185, 129, 0.15); color: #34d399; }
 
-    .app-container {
-        padding: 0.8rem 1rem;
-    }
+        footer { text-align: center; padding-top: 1rem; color: var(--text-muted); font-size: 0.75rem; opacity: 0.7; flex-shrink: 0; }
 
-    header {
-        margin-bottom: 0.6rem;
-    }
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) {
+            .app-container { padding: 1.2rem; }
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 1rem; }
+            .app-card { padding: 1.2rem; }
+        }
 
-    .brand-text h1 { font-size: 0.95rem; }
-    .brand-text p { font-size: 0.65rem; }
-    .date-badge { font-size: 0.65rem; padding: 4px 8px; }
+        @media (max-width: 768px) {
+            .app-container { padding: 1rem; }
+            header { margin-bottom: 1rem; }
+            .brand { gap: 8px; }
+            .logo-icon { width: 32px; height: 32px; }
+            .brand-text h1 { font-size: 0.95rem; }
+            .brand-text p { font-size: 0.7rem; }
+            .date-badge { padding: 4px 10px; font-size: 0.7rem; }
+            .dashboard-grid { gap: 0.8rem; }
+            .app-card { padding: 0.9rem; border-radius: 20px; }
+            .card-header { margin-bottom: 0.6rem; }
+            .icon-wrapper { width: 36px; height: 36px; border-radius: 10px; font-size: 1rem; }
+            .status-badge { font-size: 0.6rem; padding: 2px 6px; border-radius: 10px; }
+            .card-title { font-size: 0.9rem; margin-bottom: 0.3rem; }
+            .card-desc { font-size: 0.7rem; line-height: 1.3; margin-bottom: 0.8rem; -webkit-line-clamp: 2; }
+            .btn-launch { padding: 8px; border-radius: 10px; font-size: 0.75rem; gap: 6px; }
+            footer { padding-top: 0.8rem; font-size: 0.65rem; }
+        }
 
-    .dashboard-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem; 
-        flex: 1;
-        min-height: 0;
-    }
+        @media (max-width: 360px) {
+            .app-container { padding: 0.8rem; }
+            .brand-text h1 { font-size: 0.85rem; }
+            .card-title { font-size: 0.85rem; }
+            .card-desc { font-size: 0.65rem; }
+            .btn-launch { font-size: 0.7rem; padding: 7px; }
+        }
 
-    /* SOLUSI KUNCI WARNA: Menggunakan Hex Warna Ungu Gelap + 2-digit alpha (80) untuk transparansi */
-    main.dashboard-grid .app-card {
-        background-color: #1e0b3680 !important; /* #1e0b36 adalah warna tergelap web Anda, '80' adalah transparansinya */
-        background: #1e0b3680 !important;
-        border: 1px solid rgba(255, 255, 255, 0.15) !important;
-        
-        /* Mematikan total efek filter pemicu bug memutih di mobile */
-        backdrop-filter: none !important; 
-        -webkit-backdrop-filter: none !important;
-        
-        padding: 0.8rem 1.2rem;
-        border-radius: 14px;
-        flex: 1;
-        min-height: 0; 
-        display: flex;
-        flex-direction: column;
-        box-shadow: none !important;
-    }
-
-    .card-header { margin-bottom: 0.2rem; }
-    .icon-wrapper { width: 30px; height: 30px; font-size: 0.9rem; border-radius: 8px; }
-    .status-badge { font-size: 0.6rem; padding: 2px 6px; }
-    
-    .card-title { 
-        font-size: 0.95rem; 
-        margin-bottom: 0.1rem; 
-        color: #ffffff !important; 
-    }
-    
-    .card-desc {
-        font-size: 0.72rem;
-        line-height: 1.3;
-        margin-bottom: 0.4rem;
-        color: #d8b4fe !important; /* Mengunci teks deskripsi agar tetap ungu muda seperti di web */
-        display: -webkit-box;
-        -webkit-line-clamp: 2; 
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    .btn-launch {
-        padding: 6px;
-        font-size: 0.75rem;
-        border-radius: 8px;
-        margin-top: auto;
-    }
-    
-    footer {
-        padding-top: 0.4rem;
-        font-size: 0.65rem;
-    }
-}
-</style>
+        @media (max-height: 600px) and (orientation: landscape) {
+            .app-container { padding: 0.8rem 1.5rem; }
+            header { margin-bottom: 0.8rem; }
+            .dashboard-grid { gap: 0.6rem; }
+            .app-card { padding: 0.7rem; }
+            .card-desc { -webkit-line-clamp: 2; margin-bottom: 0.6rem; }
+            .btn-launch { padding: 6px; }
+        }
+    </style>
 </head>
 <body>
 
@@ -317,7 +233,7 @@
         <header>
             <div class="brand">
                 <div class="logo-icon">
-                    <img src="img/BMI.png" alt="Bank Muamalat Logo" style="filter: invert(1) hue-rotate(180deg); mix-blend-mode: screen;" width="40" height="40">
+                    <i class="fas fa-university" style="color:white; font-size: 24px;"></i>
                 </div>
                 <div class="brand-text">
                     <h1>Bank Muamalat Indonesia</h1>
@@ -331,6 +247,7 @@
 
         <main class="dashboard-grid">
 
+            <!-- Card 1: M-Dashboard -->
             <article class="app-card card-dashboard">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-layer-group"></i></div>
@@ -345,6 +262,7 @@
                 </a>
             </article>
 
+            <!-- Card 2: M-Leading Indicator -->
             <article class="app-card card-indicator">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-chart-line"></i></div>
@@ -352,13 +270,14 @@
                 </div>
                 <h2 class="card-title">M-Leading Indicator</h2>
                 <p class="card-desc">
-                    Dashboard indikator bulanan pertumbuhan CA, SA, Funding, Booking Consumer, Booking SME, Porsi Haji, MDIN, QRIS, SLI dan New CIF vs Target Bulanan.
+                    Dashboard indikator bulanan pertumbuhan CA, SA, Funding, Booking Consumer, Booking SME, Porsi Haji, MDIN, QRIS dan New CIF vs Target Bulanan.
                 </p>
                 <a href="https://m-leading-ind.vercel.app/" target="_blank" class="btn-launch">
                     Buka Aplikasi <i class="fas fa-arrow-right"></i>
                 </a>
             </article>
 
+            <!-- Card 3: M-Leads -->
             <article class="app-card card-leads">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-users-viewfinder"></i></div>
@@ -366,13 +285,14 @@
                 </div>
                 <h2 class="card-title">M-Leads</h2>
                 <p class="card-desc">
-                    Monitoring real-time total tim, leads injected HO, follow-up, interested prospects, hingga booking conversion rate.
+                    Monitoring real-time total tim sales, leads injected by HO, follow-up, interested, hingga booking conversion rate.
                 </p>
                 <a href="https://m-leads.vercel.app/" target="_blank" class="btn-launch">
                     Buka Aplikasi <i class="fas fa-arrow-right"></i>
                 </a>
             </article>
 
+            <!-- Card 4: M-Direct -->
             <article class="app-card card-direct">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-user-check"></i></div>
@@ -380,7 +300,7 @@
                 </div>
                 <h2 class="card-title">M-Direct</h2>
                 <p class="card-desc">
-                    Performa akses tim sales dengan monitoring login rate harian, total agen aktif, serta tracking aktivitas harian.
+                    Performa akses tim sales dengan monitoring login rate harian, total agen aktif, serta tracking aktivitas bulanan.
                 </p>
                 <a href="https://m-direct.vercel.app/" target="_blank" class="btn-launch">
                     Buka Aplikasi <i class="fas fa-arrow-right"></i>
