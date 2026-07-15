@@ -26,6 +26,7 @@
             background: var(--bg-gradient);
             color: var(--text-main);
             height: 100vh;
+            height: 100dvh; /* Mengatasi address bar browser mobile */
             width: 100vw;
             overflow: hidden;
             display: flex;
@@ -41,6 +42,7 @@
         .app-container {
             flex: 1; display: flex; flex-direction: column; padding: 1.5rem 2rem;
             max-width: 1400px; margin: 0 auto; width: 100%; height: 100%;
+            min-height: 0;
         }
 
         header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-shrink: 0; }
@@ -70,6 +72,7 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden; 
+            min-height: 0; /* Penting agar card bisa mengecil di dalam grid flex */
             
             /* Base Color Solid Gelap */
             background-color: #150524; 
@@ -85,7 +88,6 @@
             content: '';
             position: absolute;
             inset: 0;
-            /* Gradient lebih transparan (0.75 - 0.90) agar gambar dashboard terlihat */
             background: linear-gradient(to bottom, rgba(21, 5, 36, 0.75) 0%, rgba(21, 5, 36, 0.92) 100%);
             z-index: 0;
             pointer-events: none;
@@ -98,7 +100,6 @@
             box-shadow: 0 20px 50px -10px rgba(100, 65, 165, 0.4), inset 0 0 0 1px rgba(155, 93, 229, 0.3);
         }
         
-        /* Hover Effect: Overlay makin terang saat hover */
         .app-card:hover::before {
             background: linear-gradient(to bottom, rgba(21, 5, 36, 0.60) 0%, rgba(21, 5, 36, 0.85) 100%);
         }
@@ -148,7 +149,7 @@
             transform: scale(1.02);
         }
 
-        /* --- BACKGROUND IMAGES SPECIFIC --- */
+        /* --- BACKGROUND IMAGES --- */
         .card-dashboard { background-image: url('/img/m-dashboard.png?q=80&w=1000&auto=format&fit=crop'); }
         .card-indicator { background-image: url('img/m-leading.png?q=80&w=1000&auto=format&fit=crop'); }
         .card-leads { background-image: url('img/m-leads.png?q=80&w=1000&auto=format&fit=crop'); }
@@ -171,53 +172,73 @@
 
         /* MODIFIKASI KHUSUS MOBILE AGAR PAS DI LAYAR & FOOTER TERLIHAT */
         @media (max-width: 768px) {
-            .app-container { padding: 0.8rem; }
-            header { margin-bottom: 0.6rem; }
-            .brand { gap: 6px; }
-            .logo-icon { width: 28px; height: 28px; }
-            .logo-icon img { width: 26px; height: 26px; }
-            .brand-text h1 { font-size: 0.85rem; }
-            .brand-text p { font-size: 0.65rem; }
-            .date-badge { padding: 3px 8px; font-size: 0.65rem; }
+            /* Izinkan scroll jika layar handphone terlalu kecil agar footer tidak terpotong mati */
+            body { overflow-y: auto; } 
             
-            /* Mengurangi Gap Grid */
-            .dashboard-grid { gap: 0.6rem; }
+            .app-container { 
+                padding: 0.6rem 0.8rem; 
+                height: auto; 
+                min-height: 100dvh;
+                justify-content: space-between;
+            }
+            
+            header { margin-bottom: 0.5rem; }
+            .brand { gap: 6px; }
+            .logo-icon { width: 24px; height: 24px; }
+            .logo-icon img { width: 22px; height: 22px; }
+            .brand-text h1 { font-size: 0.8rem; }
+            .brand-text p { font-size: 0.6rem; }
+            
+            /* Mengatur tinggi baris grid secara tegas 50% dan 50% */
+            .dashboard-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                grid-template-rows: repeat(2, 1fr); 
+                gap: 0.5rem; 
+                flex: 1;
+                margin-bottom: 0.5rem;
+            }
             
             /* Mengurangi Padding Card & Membuat Konten Lebih Padat */
-            .app-card { padding: 0.7rem; border-radius: 16px; }
-            .card-header { margin-bottom: 0.4rem; }
-            .icon-wrapper { width: 30px; height: 30px; border-radius: 8px; font-size: 0.85rem; }
-            .status-badge { font-size: 0.55rem; padding: 2px 6px; border-radius: 8px; }
-            .card-title { font-size: 0.8rem; margin-bottom: 0.2rem; }
+            .app-card { padding: 0.6rem; border-radius: 12px; }
+            .card-header { margin-bottom: 0.3rem; }
+            .icon-wrapper { width: 26px; height: 26px; border-radius: 6px; font-size: 0.75rem; }
+            .status-badge { font-size: 0.5rem; padding: 1px 4px; border-radius: 6px; }
+            .card-title { font-size: 0.75rem; margin-bottom: 0.1rem; }
             
-            /* Membatasi teks deskripsi 2 baris dengan font lebih kecil */
-            .card-desc { font-size: 0.65rem; line-height: 1.25; margin-bottom: 0.5rem; -webkit-line-clamp: 2; }
+            /* Membatasi teks deskripsi 2 baris dengan font lebih kecil agar tidak makan tempat */
+            .card-desc { 
+                font-size: 0.6rem; 
+                line-height: 1.2; 
+                margin-bottom: 0.4rem; 
+                -webkit-line-clamp: 2; 
+            }
             
             /* Mengurangi ukuran tombol launching */
-            .btn-launch { padding: 7px; border-radius: 8px; font-size: 0.7rem; gap: 4px; }
+            .btn-launch { padding: 6px; border-radius: 6px; font-size: 0.65rem; gap: 4px; }
             
-            /* Memberikan ruang untuk footer */
-            footer { padding-top: 0.5rem; font-size: 0.6rem; }
+            /* Memberikan ruang yang cukup untuk footer */
+            footer { padding: 0.4rem 0; font-size: 0.55rem; }
         }
 
         @media (max-width: 360px) {
-            .app-container { padding: 0.5rem; }
-            .dashboard-grid { gap: 0.4rem; }
-            .app-card { padding: 0.5rem; border-radius: 12px; }
-            .brand-text h1 { font-size: 0.75rem; }
-            .card-title { font-size: 0.75rem; }
-            .card-desc { font-size: 0.6rem; margin-bottom: 0.4rem; }
-            .btn-launch { font-size: 0.65rem; padding: 6px; }
-            footer { padding-top: 0.4rem; font-size: 0.55rem; }
+            .app-container { padding: 0.4rem; }
+            .dashboard-grid { gap: 0.3rem; }
+            .app-card { padding: 0.4rem; border-radius: 10px; }
+            .brand-text h1 { font-size: 0.7rem; }
+            .card-title { font-size: 0.7rem; }
+            .card-desc { font-size: 0.55rem; margin-bottom: 0.3rem; }
+            .btn-launch { font-size: 0.6rem; padding: 5px; }
+            footer { padding: 0.3rem 0; font-size: 0.5rem; }
         }
 
         @media (max-height: 600px) and (orientation: landscape) {
-            .app-container { padding: 0.5rem 1rem; }
-            header { margin-bottom: 0.4rem; }
-            .dashboard-grid { gap: 0.4rem; }
-            .app-card { padding: 0.5rem; }
-            .card-desc { -webkit-line-clamp: 1; margin-bottom: 0.4rem; }
-            .btn-launch { padding: 5px; }
+            body { overflow-y: auto; }
+            .app-container { padding: 0.4rem 1rem; height: auto; }
+            header { margin-bottom: 0.3rem; }
+            .dashboard-grid { gap: 0.3rem; }
+            .app-card { padding: 0.4rem; }
+            .card-desc { -webkit-line-clamp: 1; margin-bottom: 0.3rem; }
+            .btn-launch { padding: 4px; }
         }
     </style>
 </head>
