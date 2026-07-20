@@ -20,7 +20,6 @@
             --primary-dark: #4c1d95;
             
             /* DEFAULT: DARK MODE */
-            /* Menggunakan gambar asli untuk dark mode */
             --bg-body: url('img/bg-web.png') center center / cover no-repeat fixed;
             --bg-overlay: rgba(10, 5, 25, 0.60);
             --text-main: #ffffff;
@@ -41,20 +40,21 @@
             --btn-grad-start: #9b5de5;
             --btn-grad-end: #6441A5;
             --btn-shadow: rgba(0,0,0,0.3);
+
+            /* TICKER STYLES */
+            --ticker-bg: rgba(124, 58, 237, 0.2);
+            --ticker-border: rgba(255, 255, 255, 0.15);
+            --ticker-text: #f3e8ff;
         }
 
         /* LIGHT MODE OVERRIDES */
         body.light-mode {
-            /* --- PERUBAHAN DI SINI --- */
-            /* Gunakan bg-web-light.png untuk tampilan desktop/web */
             --bg-body: url('img/bg-web-light.png') center center / cover no-repeat fixed;
-            /* ------------------------- */
-            
-            --bg-overlay: transparent; /* No overlay needed for graphic bg */
+            --bg-overlay: transparent;
             --text-main: #1e293b;
             --text-muted: #64748b;
             
-            --card-bg: rgba(255, 255, 255, 0.90); /* Sedikit lebih transparan agar bg terlihat */
+            --card-bg: rgba(255, 255, 255, 0.90);
             --card-border: rgba(255, 255, 255, 1);
             --card-shadow: 0 10px 30px -5px rgba(100, 65, 165, 0.1);
             --card-hover-shadow: 0 20px 40px -5px rgba(100, 65, 165, 0.2);
@@ -69,25 +69,23 @@
             --btn-grad-start: #7c3aed;
             --btn-grad-end: #4c1d95;
             --btn-shadow: rgba(124, 58, 237, 0.3);
+
+            /* TICKER LIGHT MODE */
+            --ticker-bg: rgba(245, 243, 255, 0.9);
+            --ticker-border: rgba(124, 58, 237, 0.2);
+            --ticker-text: #5b21b6;
         }
 
         /* Mobile Background Overrides */
         @media (max-width: 768px) {
-            /* Dark Mode Mobile */
             :root {
                 --bg-body: url('img/bg-mobile.png') center center / cover no-repeat fixed;
             }
-            
-            /* --- PERUBAHAN DI SINI --- */
-            /* Light Mode Mobile */
             body.light-mode {
-                /* Gunakan bg-mobile-light.png untuk tampilan mobile */
                 --bg-body: url('img/bg-mobile-light.png') center center / cover no-repeat fixed;
             }
-            /* ------------------------- */
         }
 
-        /* Rest of the CSS remains unchanged */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
 
         body {
@@ -102,7 +100,6 @@
             position: relative;
         }
 
-        /* Overlay Logic */
         body::before {
             content: '';
             position: fixed;
@@ -112,21 +109,9 @@
             pointer-events: none;
             transition: background 0.3s ease;
         }
-        
-        /* Pattern for Light Mode - Removed as we use a graphic background now */
-        /* body.light-mode::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: radial-gradient(#7c3aed 0.5px, transparent 0.5px);
-            background-size: 24px 24px;
-            opacity: 0.05;
-            z-index: -1;
-            pointer-events: none;
-        } */
 
         .app-container {
-            flex: 1; display: flex; flex-direction: column; padding: 1.5rem 2rem;
+            flex: 1; display: flex; flex-direction: column; padding: 1.5rem 2rem 1rem 2rem;
             max-width: 1400px; margin: 0 auto; width: 100%; height: 100%;
             min-height: 0;
         }
@@ -143,12 +128,11 @@
             gap: 10px;
         }
 
-        /* THEME TOGGLE BUTTON */
         .theme-toggle {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             color: var(--text-main);
-            width: 25px; height: 25px; /* Diperbaiki ukuran agar bulat sempurna */
+            width: 25px; height: 25px;
             border-radius: 100%;
             cursor: pointer;
             display: flex; align-items: center; justify-content: center;
@@ -169,7 +153,6 @@
             flex: 1; min-height: 0;
         }
 
-        /* --- CARD STYLING --- */
         .app-card {
             border: 1px solid var(--card-border); 
             box-shadow: var(--card-shadow);
@@ -185,7 +168,6 @@
             -webkit-backdrop-filter: blur(20px);
         }
 
-        /* Gradient Overlay inside Card (Subtle) */
         .app-card::before {
             content: '';
             position: absolute;
@@ -233,12 +215,12 @@
 
         .btn-launch {
             display: flex; align-items: center; justify-content: center; gap: 8px;
-            width: 100%; padding: 14px; border-radius: 14px;
+            width: 100%; padding: 10px; border-radius: 14px;
             background: linear-gradient(135deg, var(--btn-grad-start), var(--btn-grad-end));
             color: white; text-decoration: none; font-weight: 600; font-size: 0.95rem;
             transition: all 0.3s ease;
             border: 1px solid rgba(255,255,255,0.1);
-            margin-top: auto;
+            margin-top: 10px;
             box-shadow: 0 4px 15px var(--btn-shadow);
         }
 
@@ -247,13 +229,64 @@
             filter: brightness(1.1);
         }
 
-        /* Icon Specific Colors (Adjusting for visibility in both modes) */
         .card-dashboard .icon-wrapper { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
         .card-indicator .icon-wrapper { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
         .card-leads .icon-wrapper { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
         .card-direct .icon-wrapper { background: rgba(16, 185, 129, 0.1); color: #10b981; }
 
-        footer { text-align: center; padding-top: 1rem; color: var(--text-muted); font-size: 0.75rem; flex-shrink: 0; }
+        /* ============================================ */
+        /*  SCROLLING TICKER STYLING                    */
+        /* ============================================ */
+        .ticker-container {
+            margin-top: 1rem;
+            width: 100%;
+            overflow: hidden;
+            background: var(--ticker-bg);
+            border: 1px solid var(--ticker-border);
+            border-radius: 12px;
+            padding: 8px 0;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .ticker-wrapper {
+            display: flex;
+            width: 100%;
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        }
+
+        .ticker-content {
+            display: flex;
+            white-space: nowrap;
+            animation: tickerAnimation 20s linear infinite;
+        }
+
+        .ticker-item {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ticker-text);
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @keyframes tickerAnimation {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Pause animation on hover */
+        .ticker-container:hover .ticker-content {
+            animation-play-state: paused;
+        }
+
+        footer { text-align: center; padding-top: 0.5rem; color: var(--text-muted); font-size: 0.75rem; flex-shrink: 0; }
 
         /* Responsive Breakpoints */
         @media (max-width: 1024px) {
@@ -265,7 +298,7 @@
         @media (max-width: 768px) {
             body { overflow: hidden !important; }
             .app-container { padding: 0.6rem; height: 100dvh; }
-            header { margin-bottom: 1rem; } 
+            header { margin-bottom: 0.8rem; } 
             
             .brand { gap: 6px; }
             .logo-icon { width: 22px; height: 22px; }
@@ -289,6 +322,9 @@
             
             .card-desc { font-size: 0.6rem; line-height: 1.2; margin-bottom: 0.3rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
             .btn-launch { padding: 10px; border-radius: 5px; font-size: 0.6rem; gap: 3px; }
+            
+            .ticker-container { margin-top: 0.4rem; padding: 4px 0; border-radius: 6px; }
+            .ticker-item { font-size: 0.65rem; padding: 0 1rem; }
             
             footer { padding: 0.2rem 0; font-size: 0.55rem; }
         }
@@ -377,7 +413,7 @@
                     1. Filter by typing NIK/Name, or select Periods, Position or Branch or click on Marketing Name<br>
                     2. Performance by Position & Top 5 Performers<br>
                     3. Pick theme between dark and light<br>
-                    4. Display Ranking Performance (Branch or Co-Branch)<br>
+                    4. Display Ranking Performance<br>
                     5. Table contains detailed data breakdown<br>
                 </p>
                 <a href="https://m-leads.vercel.app/" target="_blank" class="btn-launch">
@@ -399,7 +435,7 @@
                     1. Filter by typing NIK/Name, or select Periods, Position, Branch and MTD Login Status<br>
                     2. Performance Total Agents, Login MTD, Not Login MTD, Login Rate Convertion<br>
                     3. Pick theme between dark and light<br>
-                    4. Display Chart Monthly Progress M-Direct by clicking Marketing Name<br>
+                    4. Display Chart Monthly Progress M-Direct<br>
                     5. Table contains detailed data breakdown<br>
                 </p>
                 <a href="https://m-direct.vercel.app/" target="_blank" class="btn-launch">
@@ -408,6 +444,18 @@
             </article>
 
         </main>
+
+        <!-- Scrolling Ticker -->
+        <div class="ticker-container">
+            <div class="ticker-wrapper">
+                <div class="ticker-content">
+                    <div class="ticker-item"><i class="fas fa-bullhorn"></i> Specially for Sales Team Sales & Leader Region Sumatera!!</div>
+                    <div class="ticker-item"><i class="fas fa-bullhorn"></i> Specially for Sales Team Sales & Leader Region Sumatera!!</div>
+                    <div class="ticker-item"><i class="fas fa-bullhorn"></i> Specially for Sales Team Sales & Leader Region Sumatera!!</div>
+                    <div class="ticker-item"><i class="fas fa-bullhorn"></i> Specially for Sales Team Sales & Leader Region Sumatera!!</div>
+                </div>
+            </div>
+        </div>
 
         <footer>
             Typing, Create, Update, Repeat | &copy; 2026 RBPM Region Sumatera
