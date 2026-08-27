@@ -2,6 +2,13 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta nameBerikut adalah **full HTML** dengan update indicator yang sudah ditambahkan:
+
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Region Sumatera Business Portal Management</title>
     
@@ -45,6 +52,12 @@
             --ticker-bg: rgba(124, 58, 237, 0.2);
             --ticker-border: rgba(255, 255, 255, 0.15);
             --ticker-text: #f3e8ff;
+
+            /* UPDATE INDICATOR COLORS */
+            --update-bg: rgba(16, 185, 129, 0.15);
+            --update-text: #10b981;
+            --update-border: rgba(16, 185, 129, 0.3);
+            --update-icon: #10b981;
         }
 
         /* LIGHT MODE OVERRIDES */
@@ -74,6 +87,12 @@
             --ticker-bg: rgba(245, 243, 255, 0.9);
             --ticker-border: rgba(124, 58, 237, 0.2);
             --ticker-text: #5b21b6;
+
+            /* UPDATE INDICATOR LIGHT MODE */
+            --update-bg: rgba(16, 185, 129, 0.1);
+            --update-text: #059669;
+            --update-border: rgba(16, 185, 129, 0.2);
+            --update-icon: #059669;
         }
 
         /* Mobile Background Overrides */
@@ -178,7 +197,7 @@
             opacity: 0.5;
         }
 
-        .card-header, .card-title, .card-desc, .btn-launch { position: relative; z-index: 1; }
+        .card-header, .card-title, .card-desc, .btn-launch, .update-indicator { position: relative; z-index: 1; }
 
         .app-card:hover {
             transform: translateY(-5px);
@@ -213,6 +232,35 @@
             flex-grow: 1; display: block;
         }
 
+        /* ============================================ */
+        /*  UPDATE INDICATOR STYLING                    */
+        /* ============================================ */
+        .update-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            background: var(--update-bg);
+            border: 1px solid var(--update-border);
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--update-text);
+            margin-top: 8px;
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+
+        .update-indicator i {
+            font-size: 0.65rem;
+            color: var(--update-icon);
+        }
+
+        .update-indicator:hover {
+            transform: scale(1.05);
+            background: var(--update-bg);
+        }
+
         .btn-launch {
             display: flex; align-items: center; justify-content: center; gap: 8px;
             width: 100%; padding: 10px; border-radius: 14px;
@@ -233,6 +281,7 @@
         .card-indicator .icon-wrapper { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
         .card-leads .icon-wrapper { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
         .card-direct .icon-wrapper { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+        .card-pbt .icon-wrapper { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
 
         /* ============================================ */
         /*  SCROLLING TICKER STYLING                    */
@@ -321,6 +370,13 @@
             .card-title { font-size: 0.9rem; margin-bottom: 0.7rem; }
             
             .card-desc { font-size: 0.6rem; line-height: 1.2; margin-bottom: 0.3rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+            
+            .update-indicator {
+                padding: 3px 8px;
+                font-size: 0.6rem;
+                margin-top: 6px;
+            }
+            
             .btn-launch { padding: 10px; border-radius: 5px; font-size: 0.6rem; gap: 3px; }
             
             .ticker-container { margin-top: 0.4rem; padding: 4px 0; border-radius: 6px; }
@@ -372,6 +428,11 @@
                     4. Select & Unselect legend to filter chart item<br>
                     5. Pick tab between Financing, Funding, Hajj, MDIN, QRIS & NPF<br>
                 </p>
+                <!-- Update Indicator - Ganti tanggal sesuai kebutuhan -->
+                <div class="update-indicator">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Updated: 26 Agustus 2026</span>
+                </div>
                 <a href="https://m-dashboard-region-sumatera.vercel.app/" target="_blank" class="btn-launch">
                     Open Now <i class="fas fa-arrow-right"></i>
                 </a>
@@ -394,6 +455,11 @@
                     4. Display Ranking Performance (Branch or Co-Branch)<br>
                     5. Table contains detailed data breakdown on Web version<br>
                 </p>
+                <!-- Update Indicator - Ganti tanggal sesuai kebutuhan -->
+                <div class="update-indicator">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Updated: 25 Agustus 2026</span>
+                </div>
                 <a href="https://m-leading-ind.vercel.app/" target="_blank" class="btn-launch">
                     Open Now <i class="fas fa-arrow-right"></i>
                 </a>
@@ -439,12 +505,17 @@
                     4. Display Chart Monthly Progress M-Direct<br>
                     5. Table contains detailed data breakdown<br><br>
                 </p>
+                <!-- Update Indicator - Ganti tanggal sesuai kebutuhan -->
+                <div class="update-indicator">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Updated: 24 Agustus 2026</span>
+                </div>
                 <a href="https://m-direct.vercel.app/" target="_blank" class="btn-launch">
                     Open Now <i class="fas fa-arrow-right"></i>
                 </a>
             </article>
 
-            <!-- Card 4: PBT -->
+            <!-- Card 5: PBT -->
             <article class="app-card card-pbt">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-chart-line"></i></div>
@@ -461,6 +532,11 @@
                     4. Optimized for Mobile & Web<br>
                     5. Table contains detailed data breakdown<br><br><br>
                 </p>
+                <!-- Update Indicator - Ganti tanggal sesuai kebutuhan -->
+                <div class="update-indicator">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Updated: 23 Agustus 2026</span>
+                </div>
                 <a href="https://m-pbt.vercel.app/" target="_blank" class="btn-launch">
                     Open Now <i class="fas fa-arrow-right"></i>
                 </a>
