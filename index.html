@@ -15,7 +15,6 @@
         /*  CSS VARIABLES (THEMING ENGINE)              */
         /* ============================================ */
         :root {
-            /* COMMON COLORS */
             --primary-purple: #7c3aed;
             --primary-dark: #4c1d95;
             
@@ -41,12 +40,10 @@
             --btn-grad-end: #6441A5;
             --btn-shadow: rgba(0,0,0,0.3);
 
-            /* TICKER STYLES */
             --ticker-bg: rgba(124, 58, 237, 0.2);
             --ticker-border: rgba(255, 255, 255, 0.15);
             --ticker-text: #f3e8ff;
 
-            /* UPDATE INDICATOR COLORS */
             --update-icon-color: #10b981;
             --update-glow: rgba(16, 185, 129, 0.4);
         }
@@ -74,24 +71,17 @@
             --btn-grad-end: #4c1d95;
             --btn-shadow: rgba(124, 58, 237, 0.3);
 
-            /* TICKER LIGHT MODE */
             --ticker-bg: rgba(245, 243, 255, 0.9);
             --ticker-border: rgba(124, 58, 237, 0.2);
             --ticker-text: #5b21b6;
 
-            /* UPDATE INDICATOR LIGHT MODE */
             --update-icon-color: #059669;
             --update-glow: rgba(5, 150, 105, 0.3);
         }
 
-        /* Mobile Background Overrides */
         @media (max-width: 768px) {
-            :root {
-                --bg-body: url('img/bg-mobile.png') center center / cover no-repeat fixed;
-            }
-            body.light-mode {
-                --bg-body: url('img/bg-mobile-light.png') center center / cover no-repeat fixed;
-            }
+            :root { --bg-body: url('img/bg-mobile.png') center center / cover no-repeat fixed; }
+            body.light-mode { --bg-body: url('img/bg-mobile-light.png') center center / cover no-repeat fixed; }
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
@@ -130,11 +120,7 @@
         .brand-text h1 { font-size: 1.2rem; font-weight: 700; line-height: 1.2; }
         .brand-text p { font-size: 0.8rem; color: var(--text-muted); }
         
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .header-actions { display: flex; align-items: center; gap: 10px; }
 
         .theme-toggle {
             background: var(--card-bg);
@@ -207,9 +193,7 @@
             transition: all 0.3s ease;
         }
 
-        /* ============================================ */
-        /*  BADGE CONTAINER WITH UPDATE ICON            */
-        /* ============================================ */
+        /* BADGE CONTAINER */
         .badge-container {
             display: flex;
             align-items: center;
@@ -223,11 +207,9 @@
             font-weight: 600; backdrop-filter: blur(4px);
         }
 
-        /* ============================================ */
-        /*  UPDATE INDICATOR ICON                       */
-        /* ============================================ */
+        /* UPDATE INDICATOR ICON */
         .update-icon {
-            display: none; /* Hidden by default */
+            display: none;
             width: 20px;
             height: 20px;
             border-radius: 50%;
@@ -237,13 +219,12 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            position: relative;
             animation: pulse 2s infinite;
             box-shadow: 0 0 10px var(--update-glow);
             transition: all 0.3s ease;
+            flex-shrink: 0;
         }
 
-        /* Show icon when has-update class is present */
         .has-update .update-icon {
             display: flex;
         }
@@ -253,56 +234,35 @@
             box-shadow: 0 0 15px var(--update-glow);
         }
 
-        /* Tooltip for update date */
-        .update-icon::after {
-            content: attr(data-update-date);
-            position: absolute;
-            bottom: 130%;
-            left: 50%;
-            transform: translateX(-50%);
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 10px var(--update-glow); }
+            50% { box-shadow: 0 0 20px var(--update-glow), 0 0 30px var(--update-glow); }
+        }
+
+        /* GLOBAL TOOLTIP - Fixed position, tidak terpotong overflow */
+        .global-tooltip {
+            position: fixed;
             background: var(--card-bg);
             color: var(--text-main);
-            padding: 6px 10px;
-            border-radius: 8px;
-            font-size: 0.65rem;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 0.75rem;
             font-weight: 600;
             white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
             border: 1px solid var(--card-border);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            z-index: 10;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            z-index: 9999;
             pointer-events: none;
-        }
-
-        .update-icon::before {
-            content: '';
-            position: absolute;
-            bottom: 115%;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 5px solid transparent;
-            border-top-color: var(--card-bg);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 10;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
-        .update-icon:hover::after,
-        .update-icon:hover::before {
+        .global-tooltip.visible {
             opacity: 1;
             visibility: visible;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                box-shadow: 0 0 10px var(--update-glow);
-            }
-            50% {
-                box-shadow: 0 0 20px var(--update-glow), 0 0 30px var(--update-glow);
-            }
         }
 
         .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
@@ -334,9 +294,7 @@
         .card-direct .icon-wrapper { background: rgba(16, 185, 129, 0.1); color: #10b981; }
         .card-pbt .icon-wrapper { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
 
-        /* ============================================ */
-        /*  SCROLLING TICKER STYLING                    */
-        /* ============================================ */
+        /* TICKER */
         .ticker-container {
             margin-top: 1rem;
             width: 100%;
@@ -381,14 +339,12 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* Pause animation on hover */
         .ticker-container:hover .ticker-content {
             animation-play-state: paused;
         }
 
         footer { text-align: center; padding-top: 0.5rem; color: var(--text-muted); font-size: 0.75rem; flex-shrink: 0; }
 
-        /* Responsive Breakpoints */
         @media (max-width: 1024px) {
             .app-container { padding: 1.2rem; }
             .dashboard-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 1rem; }
@@ -439,6 +395,9 @@
 </head>
 <body oncontextmenu="return false;" onkeydown="return blockShortcuts(event);" ondragstart="return false;">
 
+    <!-- Global Tooltip Element (di luar card, tidak terpotong overflow) -->
+    <div id="global-tooltip" class="global-tooltip"></div>
+
     <div class="app-container">
         
         <header>
@@ -452,7 +411,6 @@
                 </div>
             </div>
             
-            <!-- Theme Toggle Button -->
             <div class="header-actions">
                 <button id="theme-btn" class="theme-toggle" aria-label="Toggle Theme">
                     <i class="fas fa-sun"></i>
@@ -463,12 +421,10 @@
         <main class="dashboard-grid">
 
             <!-- Card 1: M-Dashboard -->
-            <!-- TAMBAHKAN class "has-update" untuk menampilkan icon -->
             <article class="app-card card-dashboard has-update">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-layer-group"></i></div>
                     <div class="badge-container">
-                        <!-- Update Icon - data-update-date untuk tooltip -->
                         <div class="update-icon" data-update-date="Updated: 26 Agustus 2026">
                             <i class="fas fa-sync-alt"></i>
                         </div>
@@ -492,12 +448,10 @@
             </article>
 
             <!-- Card 2: M-Leading Indicator -->
-            <!-- TAMBAHKAN class "has-update" untuk menampilkan icon -->
             <article class="app-card card-indicator has-update">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-chart-line"></i></div>
                     <div class="badge-container">
-                        <!-- Update Icon - data-update-date untuk tooltip -->
                         <div class="update-icon" data-update-date="Updated: 25 Agustus 2026">
                             <i class="fas fa-sync-alt"></i>
                         </div>
@@ -520,11 +474,16 @@
                 </a>
             </article>
 
-            <!-- Card 3: M-Leads 
+            <!-- Card 3: M-Leads (Commented Out)
             <article class="app-card card-leads">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-users-viewfinder"></i></div>
-                    <span class="status-badge">Consumer Leads</span>
+                    <div class="badge-container">
+                        <div class="update-icon" data-update-date="Updated: 22 Agustus 2026">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <span class="status-badge">Consumer Leads</span>
+                    </div>
                 </div>
                 <h2 class="card-title">M-Leads</h2>
                 <p class="card-desc">
@@ -543,13 +502,11 @@
             </article>
             -->
             
-            <!-- Card 4: M-Direct -->
-            <!-- TANPA class "has-update" = icon TIDAK muncul -->
+            <!-- Card 4: M-Direct (TANPA has-update = icon tidak muncul) -->
             <article class="app-card card-direct">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-user-check"></i></div>
                     <div class="badge-container">
-                        <!-- Update Icon - data-update-date untuk tooltip -->
                         <div class="update-icon" data-update-date="Updated: 24 Agustus 2026">
                             <i class="fas fa-sync-alt"></i>
                         </div>
@@ -572,13 +529,11 @@
                 </a>
             </article>
 
-            <!-- Card 5: PBT -->
-            <!-- TANPA class "has-update" = icon TIDAK muncul -->
+            <!-- Card 5: PBT (TANPA has-update = icon tidak muncul) -->
             <article class="app-card card-pbt">
                 <div class="card-header">
                     <div class="icon-wrapper"><i class="fas fa-chart-line"></i></div>
                     <div class="badge-container">
-                        <!-- Update Icon - data-update-date untuk tooltip -->
                         <div class="update-icon" data-update-date="Updated: 23 Agustus 2026">
                             <i class="fas fa-sync-alt"></i>
                         </div>
@@ -600,7 +555,6 @@
                     Open Now <i class="fas fa-arrow-right"></i>
                 </a>
             </article>
-            
 
         </main>
 
@@ -624,22 +578,19 @@
     </div>
 
     <script>
-        // Logic untuk Theme Toggle
+        // Theme Toggle Logic
         const themeBtn = document.getElementById('theme-btn');
         const themeIcon = themeBtn.querySelector('i');
         const body = document.body;
 
-        // Cek preferensi sistem saat load
         const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
         
-        // Jika sistem user Light Mode, aktifkan light mode
         if (!prefersDarkScheme.matches) {
             body.classList.add('light-mode');
             themeIcon.classList.remove('fa-sun');
             themeIcon.classList.add('fa-moon');
         }
 
-        // Event Listener Tombol
         themeBtn.addEventListener('click', () => {
             body.classList.toggle('light-mode');
             
@@ -652,9 +603,47 @@
             }
         });
 
-        // Placeholder functions for the body attributes
+        // ============================================
+        // GLOBAL TOOLTIP LOGIC (tidak terpotong overflow)
+        // ============================================
+        const tooltip = document.getElementById('global-tooltip');
+        const updateIcons = document.querySelectorAll('.update-icon');
+
+        updateIcons.forEach(icon => {
+            icon.addEventListener('mouseenter', (e) => {
+                const dateText = icon.getAttribute('data-update-date');
+                tooltip.textContent = dateText;
+                tooltip.classList.add('visible');
+                
+                // Posisi tooltip di atas icon
+                const rect = icon.getBoundingClientRect();
+                const tooltipRect = tooltip.getBoundingClientRect();
+                
+                let left = rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2);
+                let top = rect.top - tooltip.offsetHeight - 8;
+                
+                // Pastikan tooltip tidak keluar layar kiri/kanan
+                if (left < 10) left = 10;
+                if (left + tooltip.offsetWidth > window.innerWidth - 10) {
+                    left = window.innerWidth - tooltip.offsetWidth - 10;
+                }
+                
+                // Jika terlalu dekat atas layar, tampilkan di bawah icon
+                if (top < 10) {
+                    top = rect.bottom + 8;
+                }
+                
+                tooltip.style.left = left + 'px';
+                tooltip.style.top = top + 'px';
+            });
+
+            icon.addEventListener('mouseleave', () => {
+                tooltip.classList.remove('visible');
+            });
+        });
+
         function blockShortcuts(e) {
-            // Implement connection blocking logic if needed
+            // Placeholder
         }
     </script>
 
