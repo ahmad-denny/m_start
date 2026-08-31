@@ -219,7 +219,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            animation: pulse 5s infinite;
+            animation: pulse 2s infinite;
             box-shadow: 0 0 10px var(--update-glow);
             transition: all 0.3s ease;
             flex-shrink: 0;
@@ -236,7 +236,7 @@
 
         @keyframes pulse {
             0%, 100% { box-shadow: 0 0 10px var(--update-glow); }
-            50% { box-shadow: 0 0 20px var(--update-glow), 0 0 30px var(--update-glow); }
+            50% { box-shadow: 0 0 10px var(--update-glow), 0 0 15px var(--update-glow); }
         }
 
         /* GLOBAL TOOLTIP - Fixed position, tidak terpotong overflow */
