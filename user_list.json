@@ -1,0 +1,568 @@
+{
+  "user_list": [
+    {
+      "nik": "20120936",
+      "nama": "Rifky Indrawan",
+      "posisi": "EBPS",
+      "lokasi": "MEDAN BALAIKOTA"
+    },
+    {
+      "nik": "20160352",
+      "nama": "Ahmad Afandi",
+      "posisi": "HCBP Region",
+      "lokasi": "MEDAN BALAIKOTA"
+    },
+    {
+      "nik": "20180570",
+      "nama": "Ahmad Denny",
+      "posisi": "RBPM",
+      "lokasi": "MEDAN BALAIKOTA"
+    },
+    {
+      "nik": "20110257",
+      "nama": "Sopian",
+      "posisi": "RCFM",
+      "lokasi": "MEDAN BALAIKOTA"
+    },
+    {
+      "nik": "20121332",
+      "nama": "Firza Aria Permana",
+      "posisi": "RCMS",
+      "lokasi": "MEDAN BALAIKOTA"
+    },
+    {
+      "nik": "20220016",
+      "nama": "Irfan Budiman Barus",
+      "posisi": "Region SME",
+      "lokasi": "MEDAN BALAIKOTA"
+    },
+    {
+      "nik": "20140578",
+      "nama": "Aldy Yusra Rangkuti",
+      "posisi": "RFTM",
+      "lokasi": "MEDAN BALAIKOTA"
+    },
+    {
+      "nik": "20000031",
+      "nama": "Kadar Budiman",
+      "posisi": "RH",
+      "lokasi": "MEDAN BALAIKOTA"
+    },
+    {
+      "nik": "20141326",
+      "nama": "Alfian Alwi",
+      "posisi": "RSFS",
+      "lokasi": "MEDAN BALAIKOTA"
+    },
+    {
+      "nik": "20110371",
+      "nama": "Meriam Zanaria",
+      "posisi": "RSS",
+      "lokasi": "MEDAN BALAIKOTA"
+    },
+    {
+      "nik": "20110434",
+      "nama": "Riza Stiadi",
+      "posisi": "RUFS",
+      "lokasi": "MEDAN BALAIKOTA"
+    },
+    {
+      "nik": "20160360",
+      "nama": "Candra Kirana",
+      "posisi": "RWPM",
+      "lokasi": "MEDAN BALAIKOTA"
+    },
+    {
+      "nik": "20080069",
+      "nama": "Fitra Nirwan",
+      "posisi": "SrBM-C",
+      "lokasi": "MEDAN BALAIKOTA"
+    },
+    {
+      "nik": "20010018",
+      "nama": "Meidya Sari",
+      "posisi": "SRBOSM",
+      "lokasi": "MEDAN BALAIKOTA"
+    },
+    {
+      "nik": "20131410",
+      "nama": "Ferry Yonanda Yusfik",
+      "posisi": "WMS",
+      "lokasi": "MEDAN BALAIKOTA"
+    },
+    {
+      "nik": "20000009",
+      "nama": "Dewi Widiyawati",
+      "posisi": "BM-D",
+      "lokasi": "KCP SUKARAMAI"
+    },
+    {
+      "nik": "20110292",
+      "nama": "Poppy Sohita Nasution",
+      "posisi": "BOSM",
+      "lokasi": "KCP SUKARAMAI"
+    },
+    {
+      "nik": "20120938",
+      "nama": "Muhammad Rajab Lubis",
+      "posisi": "BM-NC",
+      "lokasi": "KCP SERDANG"
+    },
+    {
+      "nik": "20110845",
+      "nama": "Novita Sari",
+      "posisi": "BOSM",
+      "lokasi": "KCP SERDANG"
+    },
+    {
+      "nik": "20050040",
+      "nama": "Efrida Yanti Siregar",
+      "posisi": "BM-NC",
+      "lokasi": "PADANG SIDEMPUAN"
+    },
+    {
+      "nik": "20130727",
+      "nama": "Af Wahyudi",
+      "posisi": "BOSM",
+      "lokasi": "PADANG SIDEMPUAN"
+    },
+    {
+      "nik": "20050064",
+      "nama": "Rusdi",
+      "posisi": "BM-NC",
+      "lokasi": "KCP PANYABUNGAN"
+    },
+    {
+      "nik": "20090299",
+      "nama": "Fatimah Suhro",
+      "posisi": "BOSM",
+      "lokasi": "KCP PANYABUNGAN"
+    },
+    {
+      "nik": "20000007",
+      "nama": "Rusydi Syafri",
+      "posisi": "ROSM",
+      "lokasi": "PEKANBARU"
+    },
+    {
+      "nik": "20090220",
+      "nama": "Danang Rokhmad Sulendra",
+      "posisi": "SrBM-C",
+      "lokasi": "PEKANBARU"
+    },
+    {
+      "nik": "20130797",
+      "nama": "Tomi Agusta Putra",
+      "posisi": "SRBOSM",
+      "lokasi": "PEKANBARU"
+    },
+    {
+      "nik": "20080008",
+      "nama": "Sefri Hartoni",
+      "posisi": "BM-NC",
+      "lokasi": "KCP KAMPAR"
+    },
+    {
+      "nik": "20110626",
+      "nama": "Micel Istiqrar",
+      "posisi": "BOSM",
+      "lokasi": "KCP KAMPAR"
+    },
+    {
+      "nik": "20140734",
+      "nama": "Additya Dian Eko Putra",
+      "posisi": "BM-D",
+      "lokasi": "BATAM"
+    },
+    {
+      "nik": "20120200",
+      "nama": "Juhendra",
+      "posisi": "BOSM",
+      "lokasi": "BATAM"
+    },
+    {
+      "nik": "20050147",
+      "nama": "Wondo Widokdo",
+      "posisi": "BM-D",
+      "lokasi": "TANJUNG PINANG"
+    },
+    {
+      "nik": "20010030",
+      "nama": "Fadlin Arief",
+      "posisi": "BOSM",
+      "lokasi": "TANJUNG PINANG"
+    },
+    {
+      "nik": "20010019",
+      "nama": "Muhammad Harmein",
+      "posisi": "SrBM-D",
+      "lokasi": "BANDA ACEH"
+    },
+    {
+      "nik": "20060034",
+      "nama": "Ratna Dewi",
+      "posisi": "SRBOSM",
+      "lokasi": "BANDA ACEH"
+    },
+    {
+      "nik": "20100323",
+      "nama": "Affan Syu`aidi",
+      "posisi": "BM-NC",
+      "lokasi": "LANGSA"
+    },
+    {
+      "nik": "20040001",
+      "nama": "Didi Mariadi",
+      "posisi": "BOSM",
+      "lokasi": "LANGSA"
+    },
+    {
+      "nik": "20100186",
+      "nama": "M Reza Anrycco",
+      "posisi": "BM-D",
+      "lokasi": "KCP LHOKSEUMAWE"
+    },
+    {
+      "nik": "20120088",
+      "nama": "Muammar Rizky Aditya Saputra",
+      "posisi": "BOSM",
+      "lokasi": "KCP LHOKSEUMAWE"
+    },
+    {
+      "nik": "20110230",
+      "nama": "Mhd Taufik",
+      "posisi": "SrBM-C",
+      "lokasi": "LAMPUNG"
+    },
+    {
+      "nik": "20140006",
+      "nama": "Ahmad Komardi",
+      "posisi": "SRBOSM",
+      "lokasi": "LAMPUNG"
+    },
+    {
+      "nik": "20110410",
+      "nama": "Sigit Adi Putra",
+      "posisi": "BM-NC",
+      "lokasi": "KCP BANDAR JAYA"
+    },
+    {
+      "nik": "20120164",
+      "nama": "Nia Noviana",
+      "posisi": "BOSM",
+      "lokasi": "KCP BANDAR JAYA"
+    },
+    {
+      "nik": "20140804",
+      "nama": "M.N Fajrie",
+      "posisi": "BM-D",
+      "lokasi": "KCP METRO LAMPUNG"
+    },
+    {
+      "nik": "20120369",
+      "nama": "Meri Mayangsari",
+      "posisi": "BOSM",
+      "lokasi": "KCP METRO LAMPUNG"
+    },
+    {
+      "nik": "20121041",
+      "nama": "Nindya Qurrata `Aini",
+      "posisi": "BM-NC",
+      "lokasi": "KCP ZA PAGAR ALAM LAMPUNG"
+    },
+    {
+      "nik": "20080084",
+      "nama": "Hana Yunita",
+      "posisi": "BOSM",
+      "lokasi": "KCP ZA PAGAR ALAM LAMPUNG"
+    },
+    {
+      "nik": "20190016",
+      "nama": "Januar Suwansyah",
+      "posisi": "BM-NC",
+      "lokasi": "KCP KOTABUMI LAMPUNG"
+    },
+    {
+      "nik": "20120162",
+      "nama": "Halimah",
+      "posisi": "BOSM",
+      "lokasi": "KCP KOTABUMI LAMPUNG"
+    },
+    {
+      "nik": "20120627",
+      "nama": "Taufik Apriansyah",
+      "posisi": "RFS",
+      "lokasi": "PALEMBANG"
+    },
+    {
+      "nik": "20060123",
+      "nama": "Rifyal Fajri",
+      "posisi": "SrBM-D",
+      "lokasi": "PALEMBANG"
+    },
+    {
+      "nik": "20110493",
+      "nama": "Muhammad Andi Kurniawan",
+      "posisi": "SRBOSM",
+      "lokasi": "PALEMBANG"
+    },
+    {
+      "nik": "20120025",
+      "nama": "Herda Fitriani",
+      "posisi": "BOSM",
+      "lokasi": "KCP PLAJU"
+    },
+    {
+      "nik": "20140871",
+      "nama": "Rinaldi",
+      "posisi": "BM-NC",
+      "lokasi": "KCP BATURAJA"
+    },
+    {
+      "nik": "20110594",
+      "nama": "Robi Syaputra",
+      "posisi": "BOSM",
+      "lokasi": "KCP BATURAJA"
+    },
+    {
+      "nik": "20190041",
+      "nama": "Melda Nirmala",
+      "posisi": "BM-NC",
+      "lokasi": "KCP ENIM"
+    },
+    {
+      "nik": "20110585",
+      "nama": "Satria",
+      "posisi": "BOSM",
+      "lokasi": "KCP ENIM"
+    },
+    {
+      "nik": "20190088",
+      "nama": "Abdul Kadir Jailani",
+      "posisi": "SrBM-C",
+      "lokasi": "PANGKAL PINANG"
+    },
+    {
+      "nik": "20100147",
+      "nama": "Dicky Nugraha",
+      "posisi": "SRBOSM",
+      "lokasi": "PANGKAL PINANG"
+    },
+    {
+      "nik": "20190195",
+      "nama": "Bayu Anggara",
+      "posisi": "BM-NC",
+      "lokasi": "KCP TANJUNG PANDAN"
+    },
+    {
+      "nik": "20140875",
+      "nama": "Yusrizal A Rachman",
+      "posisi": "BOSM",
+      "lokasi": "KCP TANJUNG PANDAN"
+    },
+    {
+      "nik": "20121353",
+      "nama": "Yuanika Dwi Utami",
+      "posisi": "BM-D",
+      "lokasi": "KCP SUNGAILIAT"
+    },
+    {
+      "nik": "20100049",
+      "nama": "Wahyuni Paraliba",
+      "posisi": "BOSM",
+      "lokasi": "KCP SUNGAILIAT"
+    },
+    {
+      "nik": "20080257",
+      "nama": "Eri Kurniawan",
+      "posisi": "BM-NC",
+      "lokasi": "KCP KOBA"
+    },
+    {
+      "nik": "20220167",
+      "nama": "Morin Oktavia",
+      "posisi": "BOSM",
+      "lokasi": "KCP KOBA"
+    },
+    {
+      "nik": "20050062",
+      "nama": "Muhammad Amin",
+      "posisi": "SrBM-D",
+      "lokasi": "PADANG"
+    },
+    {
+      "nik": "20040095",
+      "nama": "Chairul Adha",
+      "posisi": "SRBOSM",
+      "lokasi": "PADANG"
+    },
+    {
+      "nik": "20030013",
+      "nama": "Lusiana",
+      "posisi": "BM-D",
+      "lokasi": "KCP BUKITTINGGI"
+    },
+    {
+      "nik": "20100420",
+      "nama": "Alinofia",
+      "posisi": "BOSM",
+      "lokasi": "KCP BUKITTINGGI"
+    },
+    {
+      "nik": "20050012",
+      "nama": "Syuhardiman",
+      "posisi": "BM-D",
+      "lokasi": "KCP PAYAKUMBUH"
+    },
+    {
+      "nik": "20070086",
+      "nama": "Deno Rahmaniawan",
+      "posisi": "BOSM",
+      "lokasi": "KCP PAYAKUMBUH"
+    },
+    {
+      "nik": "20131341",
+      "nama": "Heyu Willy Herisna",
+      "posisi": "BM-NC",
+      "lokasi": "KCP SOLOK"
+    },
+    {
+      "nik": "20110734",
+      "nama": "Mardi Sugianto",
+      "posisi": "BOSM",
+      "lokasi": "KCP SOLOK"
+    },
+    {
+      "nik": "20160417",
+      "nama": "Januar Fadlillah",
+      "posisi": "SrBM-D",
+      "lokasi": "BENGKULU"
+    },
+    {
+      "nik": "20110089",
+      "nama": "Iqbal Ramadhan",
+      "posisi": "SRBOSM",
+      "lokasi": "BENGKULU"
+    },
+    {
+      "nik": "20110148",
+      "nama": "Maharani",
+      "posisi": "BM-D",
+      "lokasi": "KCP CURUP"
+    },
+    {
+      "nik": "20120380",
+      "nama": "Indah Eka Yulida",
+      "posisi": "BOSM",
+      "lokasi": "KCP CURUP"
+    },
+    {
+      "nik": "20050010",
+      "nama": "M. Helmi",
+      "posisi": "BM-D",
+      "lokasi": "JAMBI"
+    },
+    {
+      "nik": "20080036",
+      "nama": "Lantip Widodo",
+      "posisi": "BOSM",
+      "lokasi": "JAMBI"
+    },
+    {
+      "nik": "20121371",
+      "nama": "Jhony Ramadhan",
+      "posisi": "BM-NC",
+      "lokasi": "KCP MUARA BUNGO"
+    },
+    {
+      "nik": "20210341",
+      "nama": "Hagi Ivano Gusmaldy",
+      "posisi": "BOSM",
+      "lokasi": "KCP MUARA BUNGO"
+    },
+    {
+      "nik": "20030020",
+      "nama": "Hendra Jumardi",
+      "posisi": "BM-NC",
+      "lokasi": "KCP MANNA BENGKULU"
+    },
+    {
+      "nik": "20131381",
+      "nama": "Haniko Putra",
+      "posisi": "BOSM",
+      "lokasi": "KCP MANNA BENGKULU"
+    },
+    {
+      "nik": "20110147",
+      "nama": "Andi Setiawan",
+      "posisi": "BM-NC",
+      "lokasi": "KCP ARGA MAKMUR"
+    },
+    {
+      "nik": "20120038",
+      "nama": "Edo Alia Putra",
+      "posisi": "BOSM",
+      "lokasi": "KCP ARGA MAKMUR"
+    },
+    {
+      "nik": "20250339",
+      "nama": "Fadhil",
+      "posisi": "BM-NC",
+      "lokasi": "KCP BINJAI"
+    },
+    {
+      "nik": "20090120",
+      "nama": "Leny Devita Sari",
+      "posisi": "BOSM",
+      "lokasi": "KCP BINJAI"
+    },
+    {
+      "nik": "20120555",
+      "nama": "Muhammad Rizky",
+      "posisi": "BM-NC",
+      "lokasi": "PEMATANG SIANTAR"
+    },
+    {
+      "nik": "20070076",
+      "nama": "Jefrizal Ammar",
+      "posisi": "BOSM",
+      "lokasi": "PEMATANG SIANTAR"
+    },
+    {
+      "nik": "20110370",
+      "nama": "Marthias Alfin Damanik",
+      "posisi": "BM-NC",
+      "lokasi": "KCP KISARAN"
+    },
+    {
+      "nik": "20210144",
+      "nama": "Dimas Tri Soufi",
+      "posisi": "BOSM",
+      "lokasi": "KCP KISARAN"
+    },
+    {
+      "nik": "20250461",
+      "nama": "Masmedia Alam",
+      "posisi": "BM-NC",
+      "lokasi": "KCP STABAT"
+    },
+    {
+      "nik": "20130350",
+      "nama": "Puspa Sastika Sari",
+      "posisi": "BOSM",
+      "lokasi": "KCP STABAT"
+    },
+    {
+      "nik": "20030052",
+      "nama": "Muhammad Jar'i Daek",
+      "posisi": "SrBM-D",
+      "lokasi": "MEDAN BARU"
+    },
+    {
+      "nik": "20020042",
+      "nama": "Benny Nugraha",
+      "posisi": "SRBOSM",
+      "lokasi": "MEDAN BARU"
+    }
+  ]
+}
