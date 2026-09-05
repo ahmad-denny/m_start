@@ -861,7 +861,7 @@
                     4. Select & Unselect legend to filter chart<br>
                     5. Pick tab between Financing, Funding, Priority, Hajj, MDIN, QRIS & NPF
                 </p>
-                <button type="button" data-url="https://mdashbmi.vercel.app" class="btn-launch">
+                <button type="button" data-url="https://mdashbmi.vercel.app/" data-auth="true" class="btn-launch">
                     Open Now <i class="fas fa-arrow-right"></i>
                 </button>
             </article>
@@ -888,7 +888,7 @@
                     4. Display Ranking Performance (Branch or Co-Branch)<br>
                     5. Table contains detailed data breakdown on Web version
                 </p>
-                <button type="button" data-url="https://mleadingbmi.vercel.app" class="btn-launch">
+                <button type="button" data-url="https://m-leading-ind.vercel.app/" class="btn-launch">
                     Open Now <i class="fas fa-arrow-right"></i>
                 </button>
             </article>
@@ -915,7 +915,7 @@
                     4. Display Chart Monthly Progress M-Direct<br>
                     5. Table contains detailed data breakdown
                 </p>
-                <button type="button" data-url="https://mdirectbmi.vercel.app" class="btn-launch">
+                <button type="button" data-url="https://m-direct.vercel.app/" class="btn-launch">
                     Open Now <i class="fas fa-arrow-right"></i>
                 </button>
             </article>
@@ -942,7 +942,7 @@
                     4. Optimized for Mobile & Web<br>
                     5. Table contains detailed data breakdown
                 </p>
-                <button type="button" data-url="https://mpbtbmi.vercel.app" class="btn-launch">
+                <button type="button" data-url="https://m-pbt.vercel.app/" class="btn-launch">
                     Open Now <i class="fas fa-arrow-right"></i>
                 </button>
             </article>
@@ -974,9 +974,23 @@
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetUrl = this.getAttribute('data-url');
-                if (targetUrl) {
-                    window.open(targetUrl, '_blank', 'noopener,noreferrer');
+                const needsAuth = this.getAttribute('data-auth') === 'true';
+
+                if (!targetUrl) return;
+
+                let finalUrl = targetUrl;
+
+                if (needsAuth) {
+                    // Kirim NIK user yang sedang login ke aplikasi tujuan
+                    // supaya aplikasi tujuan tahu user ini sudah login di sini.
+                    const nik = localStorage.getItem('saved_user_nik');
+                    if (nik) {
+                        const sep = targetUrl.includes('?') ? '&' : '?';
+                        finalUrl = `${targetUrl}${sep}auth_nik=${encodeURIComponent(nik)}&auth_ts=${Date.now()}`;
+                    }
                 }
+
+                window.open(finalUrl, '_blank', 'noopener,noreferrer');
             });
         });
 
