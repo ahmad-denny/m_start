@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Region Sumatera Business Portal Management</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ============================================ */
+        /* CSS VARIABLES (THEMING ENGINE)              */
+        /* ============================================ */
+        :root {
+            --primary-purple: #7c3aed;
+            --primary-dark: #4c1d95;
+            
+            /* DEFAULT: DARK MODE */
+            --bg-body: url('img/bg-web.png') center center / cover no-repeat fixed;
+            --bg-overlay: rgba(10, 5, 25, 0.60);
+            --text-main: #ffffff;
+            --text-muted: #d8b4fe;
+            
+            --card-bg: rgba(15, 8, 30, 0.85);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --card-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+            --card-hover-shadow: 0 20px 40px -10px rgba(101, 28, 236, 0.4);
+            
+            --icon-bg: rgba(255, 255, 255, 0.08);
+            --icon-color: #fff;
+            
+            --badge-bg: rgba(34, 197, 94, 0.15);
+            --badge-text: #4ade80;
+            --badge-border: rgba(34, 197, 94, 0.2);
+
+            --btn-grad-start: #9b5de5;
+            --btn-grad-end: #6441A5;
+            --btn-shadow: rgba(0,0,0,0.3);
+
+            --ticker-bg: rgba(124, 58, 237, 0.2);
+            --ticker-border: rgba(255, 255, 255, 0.15);
+            --ticker-text: #f3e8ff;
+
+            --update-icon-color: #10b981;
+            --update-glow: rgba(16, 185, 129, 0.4);
+            --error-color: #f87171;
+        }
+
+        /* LIGHT MODE OVERRIDES */
+        body.light-mode {
+            --bg-body: url('img/bg-web-light.png') center center / cover no-repeat fixed;
+            --bg-overlay: transparent;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            
+            --card-bg: rgba(255, 255, 255, 0.90);
+            --card-border: rgba(255, 255, 255, 1);
+            --card-shadow: 0 10px 30px -5px rgba(100, 65, 165, 0.1);
+            --card-hover-shadow: 0 20px 40px -5px rgba(100, 65, 165, 0.2);
+            
+            --icon-bg: #f5f3ff;
+            --icon-color: var(--primary-purple);
+            
+            --badge-bg: #ecfdf5;
+            --badge-text: #059669;
+            --badge-border: #d1fae5;
+
+            --btn-grad-start: #7c3aed;
+            --btn-grad-end: #4c1d95;
+            --btn-shadow: rgba(124, 58, 237, 0.3);
+
+            --ticker-bg: rgba(245, 243, 255, 0.9);
+            --ticker-border: rgba(124, 58, 237, 0.2);
+            --ticker-text: #5b21b6;
+
+            --update-icon-color: #059669;
+            --update-glow: rgba(5, 150, 105, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            :root { --bg-body: url('img/bg-mobile.png') center center / cover no-repeat fixed; }
+            body.light-mode { --bg-body: url('img/bg-mobile-light.png') center center / cover no-repeat fixed; }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+
+        body {
+            background: var(--bg-body);
+            color: var(--text-main);
+            height: 100vh;
+            height: 100dvh; 
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: var(--bg-overlay);
+            z-index: -1;
+            pointer-events: none;
+            transition: background 0.3s ease;
+        }
+
+        .app-container {
+            flex: 1; display: flex; flex-direction: column; padding: 1.5rem 2rem 1rem 2rem;
+            max-width: 1400px; margin: 0 auto; width: 100%; height: 100%;
+            min-height: 0;
+        }
+
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-shrink: 0; }
+        .brand { display: flex; align-items: center; gap: 12px; }
+        .logo-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+        .brand-text h1 { font-size: 1.2rem; font-weight: 700; line-height: 1.2; }
+        .brand-text p { font-size: 0.8rem; color: var(--text-muted); }
+        
+        .header-actions { display: flex; align-items: center; gap: 10px; }
+
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            width: 35px; height: 35px;
+            border-radius: 100%;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background: var(--primary-purple);
+            color: white;
+            border-color: var(--primary-purple);
+        }
+
+        .dashboard-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem;
+            flex: 1; min-height: 0; 
+        }
+
+        .app-card {
+            border: 1px solid var(--card-border); 
+            box-shadow: var(--card-shadow);
+            border-radius: 24px;
+            padding: 1.5rem;
+            display: flex; flex-direction: column;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden; 
+            min-height: 0; 
+            background-color: var(--card-bg); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .app-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.05) 100%);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .card-header, .card-title, .card-desc, .btn-launch { position: relative; z-index: 1; }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-hover-shadow);
+            border-color: rgba(155, 93, 229, 0.4);
+        }
+
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+        
+        .icon-wrapper {
+            width: 48px; height: 48px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem;
+            background: var(--icon-bg);
+            color: var(--icon-color);
+            border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        /* BADGE CONTAINER */
+        .badge-container {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-badge {
+            font-size: 0.7rem; padding: 4px 10px; border-radius: 15px;
+            background: var(--badge-bg); color: var(--badge-text);
+            border: 1px solid var(--badge-border);
+            font-weight: 400; backdrop-filter: blur(4px);
+        }
+
+        /* UPDATE INDICATOR ICON */
+        .update-icon {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--update-icon-color);
+            color: white;
+            font-size: 0.6rem;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 10px var(--update-glow);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .has-update .update-icon {
+            display: flex;
+        }
+
+        .update-icon:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 15px var(--update-glow);
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 10px var(--update-glow); }
+            50% { box-shadow: 0 0 20px var(--update-glow), 0 0 30px var(--update-glow); }
+        }
+
+        /* GLOBAL TOOLTIP - Fixed position */
+        .global-tooltip {
+            position: fixed;
+            background: var(--card-bg);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .global-tooltip.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        
+        .card-desc {
+            color: var(--text-muted); font-size: 0.8rem; line-height: 1.4; 
+            flex-grow: 1; display: block;
+        }
+
+        .btn-launch {
+            display: flex;  justify-content: center; gap: 8px;
+            width: 100%; padding: 10px; border-radius: 10px;
+            background: linear-gradient(135deg, var(--btn-grad-start), var(--btn-grad-end));
+            color: white; text-decoration: none; font-weight: 600; font-size: 0.80rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-top: 5px;
+            box-shadow: 0 4px 15px var(--btn-shadow);
+        }
+
+        .btn-launch:hover {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+        }
+
+        .card-dashboard .icon-wrapper { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+        .card-indicator .icon-wrapper { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+        .card-leads .icon-wrapper { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+        .card-direct .icon-wrapper { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+        .card-pbt .icon-wrapper { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
+
+        /* TICKER */
+        .ticker-container {
+            margin-top: 1rem;
+            width: 100%;
+            overflow: hidden;
+            background: var(--ticker-bg);
+            border: 1px solid var(--ticker-border);
+            border-radius: 12px;
+            padding: 8px 0;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .ticker-wrapper {
+            display: flex;
+            width: 100%;
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        }
+
+        .ticker-content {
+            display: flex;
+            white-space: nowrap;
+            animation: tickerAnimation 20s linear infinite;
+        }
+
+        .ticker-item {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ticker-text);
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @keyframes tickerAnimation {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .ticker-container:hover .ticker-content {
+            animation-play-state: paused;
+        }
+
+        footer { text-align: center; padding-top: 0.5rem; color: var(--text-muted); font-size: 0.75rem; flex-shrink: 0; }
+
+        @media (max-width: 1024px) {
+            .app-container { padding: 1.2rem; }
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 1rem; }
+            .app-card { padding: 1.2rem; }
+        }
+
+        @media (max-width: 768px) {
+            body { overflow: hidden !important; }
+            .app-container { padding: 0.6rem; height: 100dvh; }
+            header { margin-bottom: 0.8rem; } 
+            
+            .brand { gap: 6px; }
+            .logo-icon { width: 22px; height: 22px; }
+            .logo-icon img { width: 25px; height: 25px; }
+            .brand-text h1 { font-size: 0.9rem; }
+            .brand-text p { font-size: 0.7rem; }
+            
+            .dashboard-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                grid-template-rows: repeat(2, 1fr); 
+                gap: 0.5rem; 
+                flex: 1;
+                margin-bottom: 0.4rem;
+            }
+            
+            .app-card { padding: 0.5rem; border-radius: 10px; }
+            .card-header { margin-bottom: 0.9rem; }
+            .icon-wrapper { width: 25px; height: 25px; border-radius: 5px; font-size: 0.65rem; }
+            .status-badge { font-size: 0.7rem; padding: 1px 4px; border-radius: 5px; }
+            .card-title { font-size: 0.9rem; margin-bottom: 0.7rem; }
+            
+            .card-desc { font-size: 0.6rem; line-height: 1.2; margin-bottom: 0.3rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+            
+            .update-icon {
+                width: 16px;
+                height: 16px;
+                font-size: 0.5rem;
+            }
+            
+            .btn-launch { padding: 10px; border-radius: 5px; font-size: 0.6rem; gap: 3px; }
+            
+            .ticker-container { margin-top: 0.4rem; padding: 4px 0; border-radius: 6px; }
+            .ticker-item { font-size: 0.65rem; padding: 0 1rem; }
+            
+            footer { padding: 0.2rem 0; font-size: 0.55rem; }
+        }
+
+        /* ============================================ */
+        /* LOGIN GATE                                   */
+        /* ============================================ */
+        #login-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 20000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: var(--bg-body);
+            transition: opacity 0.35s ease;
+        }
+
+        #login-overlay::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--bg-overlay);
+            z-index: 0;
+        }
+
+        #login-overlay.login-success {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .login-card {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 380px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            box-shadow: var(--card-shadow);
+            border-radius: 24px;
+            padding: 2.2rem 2rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            text-align: center;
+        }
+
+        .login-card .logo-icon { margin: 0 auto 1rem auto; width: 48px; height: 48px; }
+        .login-card .logo-icon img { width: 40px; height: 40px; }
+
+        .login-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .login-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.6rem; line-height: 1.4; }
+
+        .login-field { text-align: left; margin-bottom: 1.1rem; }
+        .login-field label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .login-input-wrap { position: relative; display: flex; align-items: center; }
+
+        .login-input {
+            width: 100%;
+            padding: 12px 42px 12px 14px;
+            border-radius: 14px;
+            border: 1px solid var(--card-border);
+            background: var(--icon-bg);
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            outline: none;
+        }
+        .login-input:focus { border-color: var(--primary-purple); }
+
+        .login-toggle-visibility {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 4px;
+        }
+
+        .login-error {
+            display: none;
+            text-align: left;
+            color: var(--error-color);
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin: -0.4rem 0 0.9rem 0;
+        }
+
+        .login-btn {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; padding: 12px; border-radius: 14px;
+            background: linear-gradient(135deg, var(--btn-grad-start), var(--btn-grad-end));
+            color: white; font-weight: 600; font-size: 0.95rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 15px var(--btn-shadow);
+            cursor: pointer;
+        }
+        .login-btn:hover { filter: brightness(1.1); }
+        .login-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        .login-footnote { margin-top: 1.2rem; font-size: 0.65rem; color: var(--text-muted); }
+
+        .user-chip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 50px;
+            padding: 6px 14px 6px 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .user-chip .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--btn-grad-start), var(--btn-grad-end));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .user-chip .u-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        .user-chip .u-sub {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .user-chip .u-pos {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+
+        .user-chip .u-loc {
+            font-size: 0.6rem;
+            color: var(--badge-text);
+            background: var(--badge-bg);
+            border: 1px solid var(--badge-border);
+            padding: 1px 6px;
+            border-radius: 8px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        @keyframes loginShake {
+            10%, 90% { transform: translateX(-2px); }
+            20%, 80% { transform: translateX(4px); }
+            30%, 50%, 70% { transform: translateX(-8px); }
+            40%, 60% { transform: translateX(8px); }
+        }
+        .login-card.shake { animation: loginShake 0.5s; }
+
+        /* WELCOME TOAST */
+        #welcome-toast {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            z-index: 20001;
+            background: var(--card-bg);
+            border: 1px solid var(--badge-border);
+            color: var(--text-main);
+            padding: 12px 22px;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease, transform 0.35s ease;
+            max-width: 90vw;
+            text-align: center;
+        }
+        #welcome-toast.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        #welcome-toast i { color: var(--update-icon-color); margin-right: 6px; }
+        .btn-logout {
+            background: none; border: none; color: var(--text-muted);
+            cursor: pointer; font-size: 0.9rem; padding: 4px; margin-left: 2px;
+        }
+        .btn-logout:hover { color: var(--error-color); }
+
+    </style>
+</head>
+<body oncontextmenu="return false;" onkeydown="return blockShortcuts(event);" ondragstart="return false;">
+
+    <!-- Global Tooltip Element -->
+    <div id="global-tooltip" class="global-tooltip"></div>
+
+    <!-- Welcome Toast -->
+    <div id="welcome-toast"></div>
+
+    <!-- Login Gate -->
+    <div id="login-overlay">
+        <div class="login-card" id="login-card">
+            <div class="logo-icon">
+                <img src="img/BMI.png" alt="Bank Muamalat Logo" class="logo" width="40" height="40">
+            </div>
+            <div class="login-title">Bank Muamalat Region Sumatera</div>
+            <div class="login-subtitle">Enter your NIK to access the Portal.</div>
+
+            <form id="login-form" autocomplete="off">
+                <div class="login-field">
+                    <label for="nik-input"></label>
+                    <div class="login-input-wrap">
+                        <input type="password" id="nik-input" class="login-input" placeholder="Enter password..." inputmode="numeric" autocomplete="off" required autofocus>
+                        <button type="button" class="login-toggle-visibility" id="toggle-visibility" aria-label="View NIK">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="login-error" id="login-error"></div>
+                <button type="submit" class="login-btn" id="login-btn">
+                    Login <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+            <div class="login-footnote">Only for Sales & Leader Region Sumatera</div>
+        </div>
+    </div>
+
+    <div class="app-container">
+        
+        <header>
+            <div class="brand">
+                <div class="logo-icon">
+                    <img src="img/BMI.png" alt="Bank Muamalat Logo" class="logo" width="30" height="30">
+                </div>
+                <div class="brand-text">
+                    <h1>Bank Muamalat Indonesia</h1>
+                    <p>Region Sumatera Business Portal Management</p>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <div class="user-chip" id="user-chip" style="display:none;">
+                    <div class="avatar" id="user-avatar"></div>
+                    <div>
+                        <div class="u-name" id="user-name-chip"></div>
+                        <div class="u-sub">
+                            <span class="u-pos" id="user-pos-chip"></span>
+                            <span class="u-loc-sep" id="user-loc-sep" style="display:none;">•</span>
+                            <span class="u-loc" id="user-loc-chip" style="display:none;"></span>
+                        </div>
+                    </div>
+                    <button class="btn-logout" id="logout-btn" title="Logout"><i class="fas fa-right-from-bracket"></i></button>
+                </div>
+                <button id="theme-btn" class="theme-toggle" aria-label="Toggle Theme">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </header>
+
+        <main class="dashboard-grid">
+
+            <!-- Card 1: M-Dashboard -->
+            <article class="app-card card-dashboard has-update">
+                <div class="card-header">
+                    <div class="icon-wrapper"><i class="fas fa-layer-group"></i></div>
+                    <div class="badge-container">
+                        <div class="update-icon" data-update-date="Updated: 3 September 2026">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <span class="status-badge">Dashboard</span>
+                    </div>
+                </div>
+                <h2 class="card-title">M-Dashboard</h2>
+                <p class="card-desc">
+                    Comprehensive dashboard covering Financing, Funding, Priority, Hajj, QRIS, MDIN, and NPF, including MoM and YTD comparisons.
+                    <br><br> 
+                    <b>Feature:</b><br>
+                    1. Filter by Co-Branch, Branch, Product & Group<br>
+                    2. Select active month<br>
+                    3. Pick theme between dark and light<br>
+                    4. Select & Unselect legend to filter chart<br>
+                    5. Pick tab between Financing, Funding, Priority, Hajj, MDIN, QRIS & NPF<br>
+                </p>
+                <button type="button" data-url="https://m-dashboard-region-sumatera.vercel.app/" class="btn-launch">
+                    Open Now <i class="fas fa-arrow-right"></i>
+                </button>
+            </article>
+
+            <!-- Card 2: M-Leading Indicator -->
+            <article class="app-card card-indicator has-update">
+                <div class="card-header">
+                    <div class="icon-wrapper"><i class="fas fa-chart-line"></i></div>
+                    <div class="badge-container">
+                        <div class="update-icon" data-update-date="Updated: 3 September 2026">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <span class="status-badge">Leading Indicator</span>
+                    </div>
+                </div>
+                <h2 class="card-title">M-Leading Indicator</h2>
+                <p class="card-desc">
+                    Monthly indicator dashboard for the growth of CA, SA, Funding, Consumer & SME Bookings, Hajj Portion, MDIN, QRIS, and New CIF.
+                    <br><br> 
+                    <b>Feature:</b><br>
+                    1. Filter by Co-Branch, Branch<br>
+                    2. Select active month<br>
+                    3. Pick theme between dark and light<br>
+                    4. Display Ranking Performance (Branch or Co-Branch)<br>
+                    5. Table contains detailed data breakdown on Web version<br>
+                </p>
+                <button type="button" data-url="https://m-leading-ind.vercel.app/" class="btn-launch">
+                    Open Now <i class="fas fa-arrow-right"></i>
+                </button>
+            </article>
+            
+            <!-- Card 4: M-Direct -->
+            <article class="app-card card-direct has-update">
+                <div class="card-header">
+                    <div class="icon-wrapper"><i class="fas fa-user-check"></i></div>
+                    <div class="badge-container">
+                        <div class="update-icon" data-update-date="Updated: 31 Agustus 2026">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <span class="status-badge">Agent Performance</span>
+                    </div>
+                </div>
+                <h2 class="card-title">M-Direct</h2>
+                <p class="card-desc">
+                    Sales team access performance, featuring login rate, total active agents, and monthly tracking.
+                    <br><br> 
+                    <b>Feature:</b><br>
+                    1. Filter by NIK or Name, or select Periods, Position, Branch and MTD Login Status<br>
+                    2. Performance Total Agents, Login MTD, Not Login MTD, Login Rate Convertion<br>
+                    3. Pick theme between dark and light<br>
+                    4. Display Chart Monthly Progress M-Direct<br>
+                    5. Table contains detailed data breakdown<br>
+                </p>
+                <button type="button" data-url="https://m-direct.vercel.app/" class="btn-launch">
+                    Open Now <i class="fas fa-arrow-right"></i>
+                </button>
+            </article>
+
+            <!-- Card 5: PBT -->
+            <article class="app-card card-pbt has-update">
+                <div class="card-header">
+                    <div class="icon-wrapper"><i class="fas fa-chart-line"></i></div>
+                    <div class="badge-container">
+                        <div class="update-icon" data-update-date="Updated: Juli 2026">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <span class="status-badge">Branch KPI</span>
+                    </div>
+                </div>
+                <h2 class="card-title">PBT After HOCA</h2>
+                <p class="card-desc">                    
+                    Five key parameters forming the foundation of business profitability, ranging from infrastructure to asset quality.
+                    <br><br> 
+                    <b>Feature:</b><br>
+                    1. PBT After HOCA - Asset - CASA Ratio - FDR - FBI - PPAP monitoring<br>
+                    2. Filter by Branch to Display KPI Chart <br>
+                    3. Filter Top 10 & Bottom 10 performance<br>
+                    4. Optimized for Mobile & Web<br>
+                    5. Table contains detailed data breakdown<br><br>
+                </p>
+                <button type="button" data-url="https://m-pbt.vercel.app/" class="btn-launch">
+                    Open Now <i class="fas fa-arrow-right"></i>
+                </button>
+            </article>
+
+        </main>
+
+        <!-- Scrolling Ticker -->
+        <div class="ticker-container">
+            <div class="ticker-wrapper">
+                <div class="ticker-content">
+                    <div class="ticker-item"><i class="fas fa-bullhorn"></i> Limited only for Sales & Leader Region Sumatera!!!</div>
+                    <div class="ticker-item"><i class="fas fa-bullhorn"></i> Limited only for Sales & Leader Region Sumatera!!!</div>
+                    <div class="ticker-item"><i class="fas fa-bullhorn"></i> Limited only for Sales & Leader Region Sumatera!!!</div>
+                    <div class="ticker-item"><i class="fas fa-bullhorn"></i> Limited only for Sales & Leader Region Sumatera!!!</div>
+                    <div class="ticker-item"><i class="fas fa-bullhorn"></i> Limited only for Sales & Leader Region Sumatera!!!</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            Typing, Create, Update, Repeat | &copy; 2026 RBPM Region Sumatera
+        </footer>
+
+    </div>
+
+    <script>
+        // Navigasi tombol tanpa menampilkan URL di status bar browser
+        document.querySelectorAll('.btn-launch').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetUrl = this.getAttribute('data-url');
+                if (targetUrl) {
+                    window.open(targetUrl, '_blank', 'noopener,noreferrer');
+                }
+            });
+        });
+
+        // Theme Toggle Logic
+        const themeBtn = document.getElementById('theme-btn');
+        const themeIcon = themeBtn.querySelector('i');
+        const body = document.body;
+
+        const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+        
+        if (!prefersDarkScheme.matches) {
+            body.classList.add('light-mode');
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+        }
+
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            
+            if (body.classList.contains('light-mode')) {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        });
+
+        // GLOBAL TOOLTIP LOGIC
+        const tooltip = document.getElementById('global-tooltip');
+        const updateIcons = document.querySelectorAll('.update-icon');
+
+        updateIcons.forEach(icon => {
+            icon.addEventListener('mouseenter', (e) => {
+                const dateText = icon.getAttribute('data-update-date');
+                tooltip.textContent = dateText;
+                tooltip.classList.add('visible');
+                
+                const rect = icon.getBoundingClientRect();
+                
+                let left = rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2);
+                let top = rect.top - tooltip.offsetHeight - 8;
+                
+                if (left < 10) left = 10;
+                if (left + tooltip.offsetWidth > window.innerWidth - 10) {
+                    left = window.innerWidth - tooltip.offsetWidth - 10;
+                }
+                
+                if (top < 10) {
+                    top = rect.bottom + 8;
+                }
+                
+                tooltip.style.left = left + 'px';
+                tooltip.style.top = top + 'px';
+            });
+
+            icon.addEventListener('mouseleave', () => {
+                tooltip.classList.remove('visible');
+            });
+        });
+
+        function blockShortcuts(e) {
+            // Placeholder
+        }
+
+        // LOGIN GATE LOGIC + PERSISTENT SESSION (LOCAL STORAGE)
+        const loginOverlay = document.getElementById('login-overlay');
+        const loginCard = document.getElementById('login-card');
+        const loginForm = document.getElementById('login-form');
+        const nikInput = document.getElementById('nik-input');
+        const loginError = document.getElementById('login-error');
+        const toggleVisibility = document.getElementById('toggle-visibility');
+        const appContainer = document.querySelector('.app-container');
+        const welcomeToast = document.getElementById('welcome-toast');
+        const logoutBtn = document.getElementById('logout-btn');
+
+        appContainer.style.display = 'none';
+
+        let userList = [];
+        let userListReady = false;
+
+        async function loadUserList() {
+            try {
+                const res = await fetch('user_list.json', { cache: 'no-store' });
+                if (!res.ok) throw new Error('Failed to load user_list.json');
+                const data = await res.json();
+                userList = Array.isArray(data.user_list) ? data.user_list : [];
+                userListReady = true;
+
+                // Cek apakah ada sesi login yang tersimpan di localStorage saat halaman dibuka/direfresh
+                checkSavedSession();
+            } catch (err) {
+                loginError.textContent = 'Failed to load user data (user_list.json). Report to administrator.';
+                loginError.style.display = 'block';
+            }
+        }
+
+        // Fungsi untuk langsung masuk jika NIK tersimpan di localStorage
+        function checkSavedSession() {
+            const savedNik = localStorage.getItem('saved_user_nik');
+            if (savedNik) {
+                const user = userList.find(u => String(u.nik).trim() === String(savedNik).trim());
+                if (user) {
+                    executeLogin(user, false); // Login tanpa menampilkan toast welcome berulang jika direfresh
+                }
+            }
+        }
+
+        // Fungsi untuk memproses login UI
+        function executeLogin(user, showToast = true) {
+            loginOverlay.classList.add('login-success');
+            setTimeout(() => {
+                loginOverlay.style.display = 'none';
+                appContainer.style.display = 'flex';
+                
+                // Set data ke User Chip di header
+                const userChip = document.getElementById('user-chip');
+                const userNameChip = document.getElementById('user-name-chip');
+                const userPosChip = document.getElementById('user-pos-chip');
+                const userLocChip = document.getElementById('user-loc-chip');
+                const userLocSep = document.getElementById('user-loc-sep');
+                const userAvatar = document.getElementById('user-avatar');
+                
+                const locationVal = user.lokasi || user.cabang || user.unit || user.location || '';
+
+                userNameChip.textContent = user.nama;
+                userPosChip.textContent = user.posisi;
+                
+                if (locationVal) {
+                    userLocChip.textContent = locationVal;
+                    userLocChip.style.display = 'inline-block';
+                    if (userLocSep) userLocSep.style.display = 'inline';
+                } else {
+                    userLocChip.style.display = 'none';
+                    if (userLocSep) userLocSep.style.display = 'none';
+                }
+
+                userAvatar.textContent = user.nama ? user.nama.charAt(0).toUpperCase() : 'U';
+                userChip.style.display = 'flex';
+                
+                if (showToast) {
+                    showWelcomeToast(user);
+                }
+            }, 350);
+        }
+
+        loadUserList();
+
+        toggleVisibility.addEventListener('click', () => {
+            const isPassword = nikInput.getAttribute('type') === 'password';
+            nikInput.setAttribute('type', isPassword ? 'text' : 'password');
+            toggleVisibility.innerHTML = isPassword
+                ? '<i class="fas fa-eye-slash"></i>'
+                : '<i class="fas fa-eye"></i>';
+        });
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            loginError.style.display = 'none';
+
+            const nik = nikInput.value.trim();
+            if (!nik) return;
+
+            if (!userListReady) {
+                loginError.textContent = 'User data is loading... please try again in a moment.';
+                loginError.style.display = 'block';
+                return;
+            }
+
+            const user = userList.find(u => String(u.nik).trim() === nik);
+
+            if (user) {
+                // Simpan NIK ke localStorage agar tidak perlu login ulang saat di-refresh
+                localStorage.setItem('saved_user_nik', user.nik);
+                executeLogin(user, true);
+            } else {
+                loginError.textContent = 'NIK not found. Check your NIK.';
+                loginError.style.display = 'block';
+                loginCard.classList.add('shake');
+                setTimeout(() => loginCard.classList.remove('shake'), 500);
+                nikInput.value = '';
+                nikInput.focus();
+            }
+        });
+
+        logoutBtn.addEventListener('click', function () {
+            // Hapus sesi tersimpan di localStorage
+            localStorage.removeItem('saved_user_nik');
+
+            // Reset tampilan UI
+            document.getElementById('user-chip').style.display = 'none';
+            nikInput.value = '';
+            loginError.style.display = 'none';
+            appContainer.style.display = 'none';
+            
+            // Tampilkan kembali login overlay
+            loginOverlay.style.display = 'flex';
+            loginOverlay.classList.remove('login-success');
+            
+            setTimeout(() => nikInput.focus(), 100);
+        });
+
+        function showWelcomeToast(user) {
+            welcomeToast.innerHTML = `<div><i class="fas fa-circle-check"></i> Welcome aboard,</div><div>${user.nama} - ${user.posisi}</div>`;
+            
+            welcomeToast.classList.add('visible');
+            setTimeout(() => {
+                welcomeToast.classList.remove('visible');
+            }, 4500);
+        }
+    </script>
+
+</body>
+</html>
