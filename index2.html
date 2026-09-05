@@ -158,13 +158,29 @@
         .brand-text h1 { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
         .brand-text p { font-size: 0.78rem; color: var(--text-muted); }
         
+        .header-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            gap: 10px;
+        }
+
+        .header-bottom-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            gap: 10px;
+        }
+
         .header-actions { 
             display: flex; 
             align-items: center; 
             gap: 10px; 
         }
 
-        .theme-toggle {
+        .action-btn {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             color: var(--text-main);
@@ -175,17 +191,28 @@
             display: flex; 
             align-items: center; 
             justify-content: center;
-            font-size: 1rem;
+            font-size: 0.95rem;
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
             flex-shrink: 0;
+            text-decoration: none;
         }
-        .theme-toggle:hover {
+
+        .action-btn:hover {
             transform: scale(1.08);
+        }
+
+        .theme-toggle:hover {
             background: var(--primary-purple);
             color: white;
             border-color: var(--primary-purple);
+        }
+
+        .logout-btn:hover {
+            background: #ef4444;
+            color: white;
+            border-color: #ef4444;
         }
 
         .dashboard-grid {
@@ -478,7 +505,16 @@
             .brand-text h1 { font-size: 1.05rem; }
             .brand-text p { font-size: 0.72rem; }
             
-            .header-actions {
+            .header-top-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .header-bottom-row {
+                display: flex;
+                align-items: center;
                 justify-content: space-between;
                 width: 100%;
             }
@@ -740,12 +776,6 @@
             transform: translateX(-50%) translateY(0);
         }
         #welcome-toast i { color: var(--update-icon-color); margin-right: 6px; }
-        .btn-logout {
-            background: none; border: none; color: var(--text-muted);
-            cursor: pointer; font-size: 0.85rem; padding: 4px; margin-left: 2px;
-            flex-shrink: 0;
-        }
-        .btn-logout:hover { color: var(--error-color); }
 
     </style>
 </head>
@@ -788,17 +818,22 @@
     <div class="app-container">
         
         <header>
-            <div class="brand">
-                <div class="logo-icon">
-                    <img src="img/BMI.png" alt="Bank Muamalat Logo" class="logo" width="30" height="30">
+            <div class="header-top-row">
+                <div class="brand">
+                    <div class="logo-icon">
+                        <img src="img/BMI.png" alt="Bank Muamalat Logo" class="logo" width="30" height="30">
+                    </div>
+                    <div class="brand-text">
+                        <h1>Bank Muamalat Indonesia</h1>
+                        <p>Region Sumatera Business Portal Management</p>
+                    </div>
                 </div>
-                <div class="brand-text">
-                    <h1>Bank Muamalat Indonesia</h1>
-                    <p>Region Sumatera Business Portal Management</p>
-                </div>
+                <button class="action-btn logout-btn" id="logout-btn" title="Logout" style="display:none;" aria-label="Logout">
+                    <i class="fas fa-right-from-bracket"></i>
+                </button>
             </div>
             
-            <div class="header-actions">
+            <div class="header-bottom-row">
                 <div class="user-chip" id="user-chip" style="display:none;">
                     <div class="avatar" id="user-avatar"></div>
                     <div class="u-info">
@@ -809,9 +844,8 @@
                             <span class="u-loc" id="user-loc-chip" style="display:none;"></span>
                         </div>
                     </div>
-                    <button class="btn-logout" id="logout-btn" title="Logout"><i class="fas fa-right-from-bracket"></i></button>
                 </div>
-                <button id="theme-btn" class="theme-toggle" aria-label="Toggle Theme">
+                <button id="theme-btn" class="action-btn theme-toggle" aria-label="Toggle Theme">
                     <i class="fas fa-sun"></i>
                 </button>
             </div>
@@ -1107,6 +1141,7 @@
 
                 userAvatar.textContent = user.nama ? user.nama.charAt(0).toUpperCase() : 'U';
                 userChip.style.display = 'flex';
+                if (logoutBtn) logoutBtn.style.display = 'flex';
                 
                 if (showToast) {
                     showWelcomeToast(user);
@@ -1159,6 +1194,7 @@
 
             // Reset tampilan UI
             document.getElementById('user-chip').style.display = 'none';
+            if (logoutBtn) logoutBtn.style.display = 'none';
             nikInput.value = '';
             loginError.style.display = 'none';
             appContainer.style.display = 'none';
